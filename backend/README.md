@@ -45,6 +45,37 @@ DB_NAME=db
 ...
 ```
 
+### 📝 Migraciones (tablas)
+
+```bash
+npm run db:migrate
+```
+
+> para deshacer las migraciones:
+
+```bash
+npm run db:migrate:undo:all
+```
+
+### 🌱 Seeders (registros)
+
+```bash
+npm run db:seed
+```
+
+> para deshacer los seeders:
+
+```bash
+npm run db:seed:rollback
+```
+
+### 📝 Migraciones + 🌱 Seeders en un solo paso (opcional)
+
+```bash
+npm run db:migrate:seed
+```
+> Crea las tablas y luego inserta los registros iniciales.
+
 ### 🧪 Desarrollo
 Ejecutar el servidor en modo desarrollo:
 ```bash
