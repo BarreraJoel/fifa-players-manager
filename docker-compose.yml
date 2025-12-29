@@ -1,0 +1,41 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fifa_manager_backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      APP_PORT: ${APP_PORT}
+      ENV: ${ENV}
+
+      DB_HOST: db # ¡IMPORTANTE! El host es el nombre del servicio en docker-compose
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+
+      FRONTEND_URL: ${FRONTEND_URL}
+    volumes:
+      - ./backend:/usr/src/app
+
+  db:
+    image: mysql:8.0
+    container_name: fifa_manager_mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - mysql_data:/var/lib/mysql # Persistencia de datos
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306" # Expone el puerto por si lo necesitas localmente
+
+volumes:
+  mysql_data:
