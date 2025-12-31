@@ -13,6 +13,7 @@ export class AuthController {
     this.userService = new UserService;
   }
 
+   
   public registerUser = async (request: Request, response: Response) => {
     try {
       const body = request.body as RegisterUserDto;
