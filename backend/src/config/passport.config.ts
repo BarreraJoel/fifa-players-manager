@@ -1,4 +1,4 @@
-import JWTStrategy, { JwtFromRequestFunction } from "passport-jwt";
+import JWTStrategy, { JwtFromRequestFunction, StrategyOptions } from "passport-jwt";
 import LocalStrategy from "passport-local";
 import passport from "passport";
 import { compareSync } from "bcrypt";
@@ -8,12 +8,12 @@ import { jwtConfig } from "./jwt.config";
 export const passportConfig = passport;
 
 const cookieExtractor: JwtFromRequestFunction = function (req) {
-  if (req && req.cookies)
-    return req.cookies['jwt'];
+  if (req && req.signedCookies)
+    return req.signedCookies['access_token'];
   return null;
 };
 
-const jwtOptions = {
+const jwtOptions: StrategyOptions = {
   jwtFromRequest: cookieExtractor,
   secretOrKey: jwtConfig.access_secret
 };

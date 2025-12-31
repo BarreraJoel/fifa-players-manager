@@ -4,6 +4,7 @@ import { RegisterUserDto } from "../dto/auth/register-user.dto";
 import { UserResource } from "../resources/user/user-resource";
 import { createToken } from "../helpers/token-generator";
 import { jwtConfig } from "../config/jwt.config";
+import { setAccessTokenCookie } from "../helpers/cookies";
 
 export class AuthController {
   private userService: UserService;
@@ -21,23 +22,15 @@ export class AuthController {
         throw new Error("No se registro el usuario");
 
       const jwt = createToken({
-        id: user.id, email: user.email
+        sub: user.id, email: user.email
       }, jwtConfig.access_secret, jwtConfig.access_expire);
 
-      response.cookie('jwt', jwt, {
-        httpOnly: true,
-        sameSite: true,
-        signed: true,
-        secure: true
-      });
+      setAccessTokenCookie(response, jwt);
 
       return response.status(201).json({
         success: true,
         message: "Registro exitoso!",
-        data: {
-          user: UserResource.toResponse(user),
-          access_token: jwt,
-        }
+        data: UserResource.toResponse(user)
       });
     } catch (error: any) {
       return response.status(500).json({
@@ -46,4 +39,5 @@ export class AuthController {
       });
     }
   };
+
 }
