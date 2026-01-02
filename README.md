@@ -1,3 +1,23 @@
+### 📋 Gestión del proyecto
+
+Para la organización y seguimiento del desarrollo se utilizó **Jira** como herramienta de gestión de tareas.
+#### Metodología de trabajo
+- El trabajo se organizó mediante un tablero Kanban.
+- Cada funcionalidad fue dividida en tareas independientes.
+- Las tareas avanzaron a través de los siguientes estados:
+  - To Do
+  - In Progress
+  - In Review
+  - Done
+
+#### Alcance
+- Cada tarea representa una funcionalidad o mejora concreta del proyecto.
+- Los cambios implementados en el código están alineados con las tareas definidas en Jira.
+- Se mantuvo trazabilidad entre funcionalidades, commits y documentación.
+
+> Nota: El tablero de Jira fue utilizado como herramienta interna de planificación y seguimiento del proyecto.
+
+
 ### ⚙️ Decisiones funcionales
 
 #### 👤 Registro de usuarios
