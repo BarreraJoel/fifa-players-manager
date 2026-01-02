@@ -17,4 +17,42 @@ export default {
             }
         },
     },
+    LoginResponse: {
+        type: "object",
+        properties: {
+            status: {
+                type: "boolean",
+                description: "Estado de la solicitud",
+                example: true,
+            },
+            message: {
+                type: "string",
+                description: "Mensaje descriptivo",
+                example: "Inicio de sesión exitoso!",
+            },
+            data: {
+                type: "object",
+                properties: {
+                    user: {
+                        $ref: "#/components/schemas/FullUserSchema"
+                    }
+                }
+            }
+        },
+    },
+    InvalidCredentialResponse: {
+        type: "object",
+        properties: {
+            status: {
+                type: "boolean",
+                description: "Estado de la solicitud",
+                example: false,
+            },
+            message: {
+                type: "string",
+                description: "Mensaje descriptivo",
+                example: "Credenciales inválidas",
+            },
+        },
+    },
 };

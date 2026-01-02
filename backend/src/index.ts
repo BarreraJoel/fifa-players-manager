@@ -9,6 +9,7 @@ import swaggerConfig from "./docs/swagger";
 import cookieParser from "cookie-parser";
 import cookieConfig from "./config/cookies.config";
 import { sequelize } from "./db/sequelize";
+import { passportConfig } from "./config/passport.config";
 
 const app = express();
 
@@ -26,6 +27,8 @@ app.use("/api/docs", swagger.serve,
         explorer: true,
     })
 );
+
+app.use(passportConfig.initialize());
 
 async function initializeDatabase() {
     try {

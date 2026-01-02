@@ -30,5 +30,24 @@ export default {
         },
         required: ["full_name", "email", "password", "password_confirmation"],
     },
+    LoginRequest: {
+        type: "object",
+        properties: {
+            email: {
+                type: "string",
+                example: "example@example.com",
+                format: "email",
+                description: "Email del usuario"
+            },
+            password: {
+                type: "string",
+                minLenght: 8,
+                maxLenght: 60,
+                example: "fifa1Ab_",
+                description: "Contraseña del usuario"
+            },
+        },
+        required: ["email", "password"],
+    },
 
 };

@@ -3,8 +3,22 @@
 #### 👤 Registro de usuarios
 - El registro se realiza mediante el endpoint `POST /api/auth/register`.
 - Se validan los campos obligatorios antes de procesar la solicitud.
-- En caso de éxito, se devuelve una respuesta adecuada y se genera el token JWT.
-- En caso de error, se retorna un mensaje descriptivo con el código HTTP correspondiente.
+- En caso de éxito:
+    - Se crea el usuario.
+    - Se genera un token JWT.
+    - El token se almacena en una cookie HTTP.
+- En caso de error, se retorna un mensaje descriptivo junto con el código HTTP correspondiente.
+---
+
+#### 👤 Login de usuarios
+- El inicio de sesión se realiza mediante el endpoint `POST /api/auth/login`
+- El usuario debe enviar sus credenciales (email y contraseña) en el cuerpo de la solicitud.
+- Antes de procesar la autenticación, se validan los campos obligatorios y el formato de los datos recibidos.
+- En caso de éxito:
+    - Se autentica al usuario.
+    - Se genera un token JWT.
+    - El token se almacena en una cookie HTTP.
+- En caso de error, se retorna un mensaje descriptivo junto con el código HTTP correspondiente.
 ---
 
 #### ⚠️ Manejo de errores
