@@ -1,6 +1,12 @@
 export default {
-    // 400
-    BadRequest: {
+    ErrorResponseSchema: {
+        type: "object",
+        properties: {
+            success: { type: "boolean", example: false },
+            message: { type: "string", example: "Mensaje de error" },
+        },
+    },
+    ValidationErrorSchema: {
         type: "object",
         properties: {
             success: { type: "boolean", example: false },
@@ -34,46 +40,6 @@ export default {
                     },
                 },
             }
-        }
-    },
-    // 401
-    Unauthorized: {
-        type: "object",
-        properties: {
-            success: { type: "boolean", example: false },
-            message: { type: "string", example: "No está autenticado" },
         },
     },
-    // 403
-    Forbidden: {
-        type: "object",
-        properties: {
-            success: { type: "boolean", example: false },
-            message: { type: "string", example: "No tiene permiso para acceder" },
-        },
-    },
-    // 404
-    ModelNotFound: {
-        type: "object",
-        properties: {
-            success: { type: "boolean", example: false },
-            message: { type: "string", example: "No se encontró" },
-        },
-    },
-    // 422
-    UnprocessableEntity: {
-        type: "object",
-        properties: {
-            success: { type: "boolean", example: false },
-            message: { type: "string", example: "Unprocessable entity" },
-        },
-    },
-    // 500
-    InternalServerError: {
-        type: "object",
-        properties: {
-            success: { type: "boolean", example: false },
-            message: { type: "string", example: "Internal Server Error" },
-        },
-    },
-};
+}

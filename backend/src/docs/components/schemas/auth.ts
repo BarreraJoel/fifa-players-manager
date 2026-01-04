@@ -1,5 +1,5 @@
 export default {
-    RegisterUserRequest: {
+    RegisterRequestSchema: {
         type: "object",
         properties: {
             full_name: {
@@ -15,8 +15,8 @@ export default {
             },
             password: {
                 type: "string",
-                minLenght: 8,
-                maxLenght: 60,
+                minLength: 8,
+                maxLength: 60,
                 description: "Contraseña del usuario",
                 example: "fifa1Ab_",
             },
@@ -30,7 +30,7 @@ export default {
         },
         required: ["full_name", "email", "password", "password_confirmation"],
     },
-    LoginRequest: {
+    LoginRequestSchema: {
         type: "object",
         properties: {
             email: {
@@ -50,4 +50,14 @@ export default {
         required: ["email", "password"],
     },
 
-};
+    InvalidCredentialsSchema: {
+        type: "object",
+        properties: {
+            success: { type: "boolean" },
+            message: { type: "string" },
+        },
+    },
+
+
+
+}
