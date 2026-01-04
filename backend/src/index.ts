@@ -24,7 +24,6 @@ app.use("/api", routes);
 app.use("/api/docs", swagger.serve,
     swagger.setup(swaggerConfig, {
         swaggerOptions: { withCredentials: true },
-        explorer: true,
     })
 );
 

@@ -1,8 +1,12 @@
-import swaggerDocs from "swagger-jsdoc";
-import schemas from "./schemas";
+import swaggerDocs, { Options } from "swagger-jsdoc";
 import appConfig from "../config/app.config";
+import tags from "./tags";
+import schemas from "./components/schemas";
+import examples from "./components/examples";
+import responses from "./components/responses";
+import paths from "./paths";
 
-const options = {
+const options: Options = {
     definition: {
         openapi: '3.0.0',
         info: {
@@ -16,6 +20,7 @@ const options = {
                 description: "Servidor de desarrollo",
             },
         ],
+        tags: tags,
         components: {
             securitySchemes: {
                 cookieAuth: {
@@ -26,9 +31,12 @@ const options = {
                 },
             },
             schemas: schemas,
+            examples: examples,
+            responses: responses,
         },
+        paths: paths
     },
-    apis: ['src/routes/**/*.router.ts'],
+    apis: []
 };
 
 export default swaggerDocs(options);

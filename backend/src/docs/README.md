@@ -20,50 +20,47 @@ http://localhost:3000/api/docs
 
 Cada endpoint se documenta mediante comentarios JSDoc usando la anotación @swagger.
 
+En un archivo dentro de `src/docs/paths` definir las estructuras requeridas para una ruta:
+
 #### 📌 Ejemplo
 ```typescript
- /**
-   * @swagger
-   * /api/auth/register:
-   *   post:
-   *     summary: Registrar un nuevo usuario
-   *     description: Crea una nueva cuenta de usuario
-   *     tags: [Authentication]
-   *     security:
-   *       - cookieAuth: []
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/RegisterRequest'
-   *     responses:
-   *        201:
-   *          description: Usuario registrado exitosamente
-   *          content:
-   *            application/json:
-   *              schema:
-   *                $ref: '#/components/schemas/RegisterRequest'   
-   * 
-   *        400:
-   *          description: Solicitud inválida
-   *          content:
-   *             application/json:
-   *               schema:
-   *                 $ref: '#/components/schemas/BadRequest'
-   */
-  public registerUser = async (request: Request, response: Response) => {
-    ...
+export default {
+  "/api/auth/login": {
+    post: {
+      summary: "Login de usuario",
+      description: "Ingreso de credenciales para acceder a la aplicación",
+      tags: ["Authentication"],
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/LoginRequestSchema"
+            }
+          }
+        }
+      },
+      responses: {
+        "200": {
+          $ref: "#/components/responses/LoginSuccessResponse"
+        },
+        "400": {
+          $ref: "#/components/responses/BadRequestResponse"
+        },
+        "401": {
+          $ref: "#/components/responses/InvalidCredentialsResponse"
+        },
+        "500": {
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        },
+      }
+    }
   }
+}
 ```
 
 #### 📖 Explicación
-> **@swagger**
-
-Activa el bloque de documentación Swagger.
-Todo lo que esté dentro de este bloque se interpretará como una definición de API.
-
-> **/api/auth/register:**
+> **/api/auth/login:**
 
 Define la URL del endpoint.
 Debe coincidir exactamente con la ruta real de Express.
@@ -84,10 +81,15 @@ Podés incluir reglas, notas, o comportamientos importantes.
 
 > **tags**
 
-Clasifica el endpoint por dominio funcional.
+Clasifica el endpoint por dominio funcional. Se definen dentro de `src/docs/tags/index.ts`.
 
 ```typescript
-tags: [Authentication]
+export default [
+    {
+        name: "Authentication",
+        description: "Endpoints para autenticación y gestión de usuarios"
+    }
+]
 ```
 
 > **security:**
@@ -107,12 +109,7 @@ Describe qué espera recibir el endpoint.
 
 > **responses:**
 
-Describe todas las respuestas posibles del endpoint.
-Cada respuesta debe incluir:
-
-- Código HTTP
-- Descripción
-- Estructura del JSON de respuesta
+Describe todas las respuestas posibles del endpoint mediante referencias.
 
 ---
 >⚠️ **Nota sobre cookies**
@@ -126,48 +123,40 @@ Cada respuesta debe incluir:
 
 ### 📝 Schemas
 
+Se definen en un archivo dentro de `src/docs/components/schemas`.
 #### ➕ Crear schema
-Ejemplo
+#### 📌 Ejemplo
 ```typescript
-    RegisterUserRequest: {
-        type: "object",
-        properties: {
-            full_name: { 
-              type: "string", 
-              example: "Juan Perez"
-            },
-            email: { 
-              type: "string",
-               example: "example@example.com"
-            },
-            password: { 
-              type: "string", 
-              minLength: 8, 
-              maxLength: 60, 
-              example: "passwordMn@"
-            },
-            password_confirmation: { 
-              type: "string", 
-              minLength: 8, 
-              maxLength: 60, 
-              example: "passwordMn@"
-            },
-        },
-        required: [
-          "full_name", 
-          "email", 
-          "password", 
-          "password_confirmation"
-        ],
-    }
+export default {
+  LoginRequestSchema: {
+    type: "object",
+    properties: {
+      email: {
+        type: "string",
+        example: "example@example.com",
+        format: "email",
+        description: "Email del usuario"
+      },
+      password: {
+        type: "string",
+        minLength: 8,
+        maxLength: 60,
+        example: "fifa1Ab_",
+        description: "Contraseña del usuario"
+      },
+    },
+    required: ["email", "password"],
+ },
+}
 ```
+
 #### 📖 Explicación
 
-> **RegisterRequest**
+> **LoginRequestSchema**
 
 Es el identificador del schema, para utilizarlo hay que hacer referencia:
 ```typescript
-$ref: '#/components/schemas/RegisterRequest'
+$ref: '#/components/schemas/LoginRequestSchema'
 ```
 
 > **type: "object"**
@@ -195,11 +184,168 @@ Dentro de cada campo se puede especificar:
 Esto le indica a Swagger que esos campos no pueden faltar en el request.
 
 #### 📦 Registrar Schema
-Dentro del archivo `src/docs/index.ts`, importar y exportar los schemas creados.
+Dentro del archivo `src/docs/components/schemas/index.ts`, importar y exportar los schemas creados.
 
 ```typescript
-import authSchemas  from "./auth/auth.schema";
+import authSchemas from "./auth";
 export default {
     ...authSchemas,
 };
 ```
+
+> ⚠️ Un schema NO representa una respuesta HTTP completa.
+Las respuestas siempre se definen en `components/responses`.
+
+### 🧪 Examples
+
+Los **examples** representan respuestas reales que la API puede devolver.
+Swagger los utiliza para mostrar **casos concretos** y facilitar las pruebas desde la UI.
+
+📌 Los examples **no definen estructura**, solo muestran valores de ejemplo.
+
+Se definen en archivos dentro de `src/docs/components/examples`
+
+---
+### ➕ Crear example
+
+#### 📌 Ejemplo
+```typescript
+export default {
+  LoginSuccessExample: {
+    summary: "Login exitoso",
+    value: {
+      status: true,
+      message: "Login exitoso",
+      data: {
+        user: {
+          id: 1,
+          full_name: "Juan Perez",
+          email: "juan@example.com",
+          created_at: "2025-12-17T17:00:00Z",
+          updated_at: "2025-12-17T17:00:00Z",
+        }
+      }
+    },
+  },
+}
+```
+
+#### 📖 Explicación
+> LoginSuccessExample
+
+Es el identificador del example.
+Para utilizarlo se hace referencia desde un response:
+
+```typescript
+$ref: "#/components/examples/LoginSuccessExample"
+```
+
+
+> summary
+
+Descripción breve del ejemplo que Swagger UI mostrará en la documentación.
+
+> value
+
+Descripción breve del ejemplo que Swagger UI mostrará en la documentación.
+Consejos:
+- No usar type, properties ni required
+- No usar $ref dentro de value
+- Debe coincidir con la estructura definida en el schema asociado
+
+---
+
+#### 📦 Registrar Example
+
+Dentro del archivo `src/docs/components/examples/index.ts`, importar y exportar los examples creados.
+
+```typescript
+import authExamples from "./auth";
+
+export default {
+  ...authExamples,
+};
+```
+
+---
+
+### 📦 Responses
+Los responses representan respuestas HTTP completas y se encargan de unir:
+
+- Código de estado HTTP
+- Tipo de contenido (application/json)
+- Schema de la respuesta
+- Uno o varios examples
+
+Se definen en archivos dentro de: `src/docs/components/responses`
+
+#### ➕ Crear response
+##### 📌 Ejemplo
+```typescript
+export default {
+  LoginSuccessResponse: {
+    description: "Login exitoso",
+    content: {
+      "application/json": {
+        schema: {
+          $ref: "#/components/schemas/SuccessSchema"
+        },
+        examples: {
+          success: {
+            $ref: "#/components/examples/LoginSuccessExample"
+          },
+        },
+      },
+    }
+  },
+}
+```
+
+##### 📖 Explicación
+> LoginSuccessResponse
+
+Es el identificador del response.
+Se utiliza desde un path, asociado a un código HTTP:
+
+```typescript
+$ref: "#/components/responses/LoginSuccessResponse"
+```
+
+> description
+
+Describe el significado de la respuesta HTTP (éxito, error, validación, etc).
+
+> content
+
+Define el tipo de contenido devuelto por la API.
+En una API REST normalmente es:
+```typescript
+"application/json"
+```
+
+> schema
+
+Define la estructura completa de la respuesta.
+
+> examples
+
+Permite asociar uno o varios ejemplos a la respuesta.
+Se usa para:
+- Mostrar distintos casos con el mismo status code
+- Facilitar pruebas desde Swagger UI
+
+#### 📦 Registrar Response
+Dentro del archivo `src/docs/components/responses/index.ts`, importar y exportar los responses creados.
+```typescript
+import authResponses from "./auth";
+
+export default {
+  ...authResponses,
+};
+```
+
+#### 📌 Regla mental rápida:
+- **Schema** → define estructura (contrato)
+- **Example** → muestra valores reales
+- **Response** → une status + schema + examples
+- **Path** → consume responses
