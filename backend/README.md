@@ -37,14 +37,13 @@ npm run db:migrate:undo:all
 ```
 
 ### 🐳 Migraciones (Docker)
-> ⚠️ Si el backend corre dentro de Docker, ejecutá los comandos usando Docker.
 
 ```bash
-docker exec -it fifa_manager_backend npm run db:migrate
+npm run db:migrate:docker
 ```
 > para deshacer las migraciones:
 ```bash
-docker exec -it fifa_manager_backend npm run db:migrate:undo:all
+npm run db:migrate:docker:undo:all
 ```
 
 ### 🌱 Seeders (registros)
@@ -61,23 +60,11 @@ npm run db:seed:rollback
 
 ### 🐳 Seeders (Docker)
 ```bash
-docker exec -it fifa_manager_backend npm run db:seed
+npm run db:seed:docker
 ```
 > para deshacer los seeders:
 ```bash
-docker exec -it fifa_manager_backend npm run db:seed:rollback
-```
-
-### 📝 Migraciones + 🌱 Seeders en un solo paso (opcional)
-
-```bash
-npm run db:migrate:seed
-```
-> Crea las tablas y luego inserta los registros iniciales.
-
-### 🐳 Migraciones + Seeders (Docker)
-```bash
-docker exec -it fifa_manager_backend npm run db:migrate:seed
+npm run db:seed:docker:rollback
 ```
 
 ---
