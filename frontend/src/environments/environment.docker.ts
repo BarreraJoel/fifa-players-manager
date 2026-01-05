@@ -7,6 +7,6 @@ export const environment = {
     },
 
     api: {
-        baseUrl: 'http://backend:3000'
+        baseUrl: '/api'
     },
 };
