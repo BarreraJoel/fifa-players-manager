@@ -21,3 +21,11 @@ export interface RegisterResponse {
     access_token: string;
   };
 }
+
+export interface MeResponse {
+  success: boolean;
+  message: string;
+  data: {
+    user: User;
+  };
+}
