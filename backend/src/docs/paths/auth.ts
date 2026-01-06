@@ -58,6 +58,32 @@ export default {
 
             }
         }
+    },
+    "/api/auth/me": {
+        get: {
+            summary: "Obtener al usuario logueado",
+            description: "Obtiene la informacion del usuario logueado actualmente",
+            tags: ["Authentication"],
+            security: [
+                {
+                    cookieAuth: [],
+                }
+            ],
+            requestBody: {
+                required: false,
+            },
+            responses: {
+                "200": {
+                    $ref: "#/components/responses/UserAuthResponse"
+                },
+                "401": {
+                    $ref: "#/components/responses/UnauthorizedResponse"
+                },
+                "500": {
+                    $ref: "#/components/responses/InternalServerErrorResponse"
+                },
+            }
+        }
     }
 
 

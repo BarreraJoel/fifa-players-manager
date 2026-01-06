@@ -24,6 +24,20 @@ export default {
             message: "No está autenticado",
         },
     },
+    NoAuthTokenExample: {
+        summary: "Sin token",
+        value: {
+            success: false,
+            message: "No auth token",
+        },
+    },
+    TokenExpiredExample: {
+        summary: "Token expirado",
+        value: {
+            success: false,
+            message: "Token expired",
+        },
+    },
     // 403
     ForbiddenExample: {
         summary: "No permitido",

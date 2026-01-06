@@ -26,4 +26,9 @@ router.post(
   authController.login
 );
 
+router.get(
+  '/me',
+  checkJwtMiddleware,
+  authController.profile
+);
 export default router;

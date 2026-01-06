@@ -32,7 +32,9 @@ export class AuthController {
       return response.status(201).json({
         success: true,
         message: "Registro exitoso!",
-        data: UserResource.toResponse(user)
+        data: {
+          user: UserResource.toResponse(user)
+        }
       });
     } catch (error: any) {
       return response.status(500).json({
@@ -67,4 +69,21 @@ export class AuthController {
     }
   };
 
+  public profile = async (request: Request, response: Response) => {
+    try {
+      const user = request.user as User;
+      return response.status(200).json({
+        success: true,
+        message: "Usuario encontrado!",
+        data: {
+          user: UserResource.toResponse(user)
+        }
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
 }
