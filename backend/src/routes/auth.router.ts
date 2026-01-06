@@ -31,4 +31,10 @@ router.get(
   checkJwtMiddleware,
   authController.profile
 );
+
+router.delete(
+  '/logout',
+  checkJwtMiddleware,
+  authController.logout
+);
 export default router;
