@@ -1,6 +1,6 @@
 <div class="flex w-full justify-center">
     <z-card class="w-full max-w-md" zTitle="Registrar un nuevo usuario" zDescription="Ingrese sus datos"
-        zAction="Iniciar Sesión">
+        zAction="Iniciar Sesión" (zActionClick)="redirect('/auth/login')">
         <form class="max-w-sm space-y-6" [formGroup]="frm" (ngSubmit)="onSubmit()">
             <z-form-field>
                 <label z-form-label zRequired [for]="idFullName">Nombre completo</label>

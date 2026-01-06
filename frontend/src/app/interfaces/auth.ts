@@ -13,12 +13,25 @@ export interface RegisterDto {
   password_confirmation: string;
 }
 
+export interface LoginDto {
+  email: string;
+  password: string;
+}
+
 export interface RegisterResponse {
   success: boolean;
   message: string;
   data: {
     user: User;
     access_token: string;
+  };
+}
+
+export interface LoginResponse {
+  success: boolean;
+  message: string;
+  data: {
+    user: User;
   };
 }
 

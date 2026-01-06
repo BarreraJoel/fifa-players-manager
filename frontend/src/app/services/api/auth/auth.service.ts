@@ -1,5 +1,5 @@
 import { API_CONFIG } from '@/config/api.config';
-import { MeResponse, RegisterDto, RegisterResponse, User } from '@/interfaces/auth';
+import { LoginDto, LoginResponse, MeResponse, RegisterDto, RegisterResponse, User } from '@/interfaces/auth';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,6 +14,13 @@ export class AuthService {
   public register(data: RegisterDto): Observable<HttpResponse<RegisterResponse>> {
     return this.httpClient.post<RegisterResponse>(
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.auth.register}`,
+      data, { observe: "response" }
+    );
+  }
+
+  public login(data: LoginDto): Observable<HttpResponse<LoginResponse>> {
+    return this.httpClient.post<LoginResponse>(
+      `${API_CONFIG.baseURL}${API_CONFIG.endpoints.auth.login}`,
       data, { observe: "response" }
     );
   }
