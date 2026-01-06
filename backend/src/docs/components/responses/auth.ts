@@ -29,6 +29,21 @@ export default {
             },
         }
     },
+    UserAuthResponse: {
+        description: "Usuario logueado",
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/components/schemas/SuccessSchema"
+                },
+                examples: {
+                    success: {
+                        $ref: "#/components/examples/UserLoggedSuccessExample"
+                    },
+                },
+            },
+        }
+    },
 
     InvalidCredentialsResponse: {
         description: "Credenciales invalidas",
