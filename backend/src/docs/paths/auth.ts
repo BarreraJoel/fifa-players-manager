@@ -84,7 +84,23 @@ export default {
                 },
             }
         }
+    },
+    "/api/auth/logout": {
+        delete: {
+            summary: "Cerrar sesión",
+            description: "Cierre de sesión y eliminar la cookie",
+            tags: ["Authentication"],
+            security: [
+                {
+                    cookieAuth: [],
+                }
+            ],
+            responses: {
+                "204": {
+                    description: "Sesión cerrada exitosamente"
+                },
+            }
+        }
     }
-
 
 }
