@@ -25,6 +25,12 @@ export class AuthService {
     );
   }
 
+  public logout(): Observable<HttpResponse<any>> {
+    return this.httpClient.get(
+      `${API_CONFIG.baseURL}${API_CONFIG.endpoints.auth.logout}`, { observe: "response", withCredentials: true }
+    );
+  }
+
   public checkAuth(): Observable<HttpResponse<MeResponse>> {
     return this.httpClient.get<MeResponse>(
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.auth.me}`, { observe: "response", withCredentials: true }
