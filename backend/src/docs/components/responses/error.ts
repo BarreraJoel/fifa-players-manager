@@ -23,8 +23,14 @@ export default {
                     $ref: "#/components/schemas/FailureSchema"
                 },
                 examples: {
-                    BadRequest: {
+                    Unauthorized: {
                         $ref: "#/components/examples/UnauthorizedExample"
+                    },
+                    NoAuthToken: {
+                        $ref: "#/components/examples/NoAuthTokenExample"
+                    },
+                    TokenExpired: {
+                        $ref: "#/components/examples/TokenExpiredExample"
                     },
                 }
             },
