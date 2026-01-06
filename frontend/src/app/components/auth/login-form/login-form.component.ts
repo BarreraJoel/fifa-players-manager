@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, NonNullableFormBuilder } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, Validators, NonNullableFormBuilder, FormControl } from '@angular/forms';
 import { ZardCardComponent } from '@/shared/components/card/card.component';
 import { ZardButtonComponent } from '@/shared/components/button/button.component';
 import { ZardInputDirective } from '@/shared/components/input/input.directive';
@@ -9,18 +9,17 @@ import { Validator } from '@/utils/validators';
 import { toast } from 'ngx-sonner';
 import { ZardToastComponent } from '@/shared/components/toast/toast.component';
 import { AuthService } from '@/services/api/auth/auth.service';
-import { ApiFieldError } from '@/interfaces/api';
+import { ApiError, ApiFieldError } from '@/interfaces/api';
 import { Router } from '@angular/router';
+import { LoginDto } from '@/interfaces/auth';
 
-type RegisterForm = {
-  full_name: FormControl<string>;
+type LoginForm = {
   email: FormControl<string>;
   password: FormControl<string>;
-  password_confirmation: FormControl<string>;
 };
 
 @Component({
-  selector: 'register-form',
+  selector: 'login-form',
   imports: [
     ZardCardComponent,
     ZardButtonComponent,
@@ -29,26 +28,23 @@ type RegisterForm = {
     ZardToastComponent,
     ReactiveFormsModule
   ],
-  templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.css',
+  templateUrl: './login-form.component.html',
+  styleUrl: './login-form.component.css'
 })
-export class RegisterFormComponent {
+export class LoginFormComponent {
 
-  protected readonly idFullName = generateId('fullName');
   protected readonly idEmail = generateId('email');
   protected readonly idPassword = generateId('password');
   protected readonly idPasswordConfirm = generateId('passwordConfirm');
   protected isSubmitting = signal(false);
-  protected frm!: FormGroup<RegisterForm>;
+  protected frm!: FormGroup<LoginForm>;
   private frmInitialValue: object;
   private authService: AuthService = inject(AuthService);
 
   constructor(private fb: NonNullableFormBuilder, private router: Router) {
     this.frm = this.fb.group({
-      full_name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(60), Validator.strongPassword()]],
-      'password_confirmation': ['', [Validators.required, Validators.minLength(8), Validators.maxLength(60), Validator.equals('password', 'password_confirmation')]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(60)]],
     });
     this.frmInitialValue = this.frm.getRawValue();
   }
@@ -63,9 +59,9 @@ export class RegisterFormComponent {
       return;
     }
     this.isSubmitting.set(true);
-    this.register().subscribe(
+    this.login().subscribe(
       res => {
-        toast.success('Usuario creado correctamente', {
+        toast.success('Inicio de sesión exitoso', {
           description: 'Redireccionando al home ...',
           duration: 3000,
           position: "top-right"
@@ -98,30 +94,29 @@ export class RegisterFormComponent {
             }
           });
         }
+        else {
+          toast.error("Error al iniciar sesión", {
+            description: errorResponse.error.message,
+            duration: 2500,
+            position: 'top-right',
+          });
+        }
       }
     )
   }
 
-  private register() {
-    return this.authService.register({
-      full_name: this.fullNameControl.value,
+  private login() {
+    return this.authService.login({
       email: this.emailControl.value,
       password: this.password.value,
-      password_confirmation: this.passwordConfirmation.value
     });
   }
 
-  protected get fullNameControl() {
-    return this.frm.get('full_name')!;
-  }
   protected get emailControl() {
     return this.frm.get('email')!;
   }
   protected get password() {
     return this.frm.get('password')!;
-  }
-  protected get passwordConfirmation() {
-    return this.frm.get('password_confirmation')!;
   }
 
   protected isFieldInvalid(formControl: string): boolean {
