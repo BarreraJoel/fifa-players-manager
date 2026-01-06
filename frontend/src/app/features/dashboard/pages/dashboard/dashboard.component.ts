@@ -22,22 +22,25 @@ export class DashboardComponent {
   constructor(private router: Router) { }
   protected logout() {
     this.isClosing.set(true);
+
     toast.info('Gracias por tu visita', {
       description: 'Tu sesión ha sido cerrada correctamente. ¡Hasta la próxima!',
       duration: 2500,
       position: "top-right"
     });
 
-    this.authService.logout().subscribe(
-      response => this.router.navigateByUrl("/auth/login"),
-      error => {
-        toast.error("Error al cerrar sesión", {
-          description: error.error.message,
-          duration: 2500,
-          position: 'top-right',
-        });
-      }
-    )
+    setTimeout(() => {
+      this.authService.logout().subscribe(
+        response => this.router.navigateByUrl("/auth/login"),
+        error => {
+          toast.error("Error al cerrar sesión", {
+            description: error.error.message,
+            duration: 2500,
+            position: 'top-right',
+          });
+        }
+      )
+    }, 2000);
   }
 
 }

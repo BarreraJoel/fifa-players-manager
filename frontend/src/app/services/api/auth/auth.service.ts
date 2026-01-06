@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   public logout(): Observable<HttpResponse<any>> {
-    return this.httpClient.get(
+    return this.httpClient.delete(
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.auth.logout}`, { observe: "response", withCredentials: true }
     );
   }
