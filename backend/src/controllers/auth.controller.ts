@@ -4,7 +4,7 @@ import { RegisterUserDto } from "../dto/auth/register-user.dto";
 import { UserResource } from "../resources/user/user-resource";
 import { createToken } from "../helpers/token-generator";
 import { jwtConfig } from "../config/jwt.config";
-import { setAccessTokenCookie } from "../helpers/cookies";
+import { clearAccessTokenCookie, setAccessTokenCookie } from "../helpers/cookies";
 import { User } from "../models";
 
 export class AuthController {
@@ -79,6 +79,18 @@ export class AuthController {
           user: UserResource.toResponse(user)
         }
       });
+    } catch (error: any) {
+      return response.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  public logout = async (request: Request, response: Response) => {
+    try {
+      clearAccessTokenCookie(response);
+      return response.status(204).send();
     } catch (error: any) {
       return response.status(500).json({
         success: false,
