@@ -11,6 +11,8 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    environment:
+      - FRONTEND_URL=http://frontend:4200
     volumes:
       - ./backend:/usr/src/app
 

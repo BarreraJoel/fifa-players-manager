@@ -1,0 +1,53 @@
+<div class="flex w-full justify-center">
+    <z-card class="w-full max-w-md" zTitle="Registrar un nuevo usuario" zDescription="Ingrese sus datos"
+        zAction="Iniciar Sesión">
+        <form class="max-w-sm space-y-6" [formGroup]="frm" (ngSubmit)="onSubmit()">
+            <z-form-field>
+                <label z-form-label zRequired [for]="idFullName">Nombre completo</label>
+                <z-form-control [errorMessage]="fullNameControl.touched && isFieldInvalid('full_name') ? getErrorMessage('full_name') : ''">
+                    <input z-input type="text" [id]="idFullName" placeholder="Ej: Juan Perez"
+                        formControlName="full_name"
+                        [zStatus]="fullNameControl.invalid && fullNameControl.touched ? 'error' : undefined" />
+                </z-form-control>
+                <z-form-message>Este es tu nombre de usuario.</z-form-message>
+            </z-form-field>
+
+            <z-form-field>
+                <label z-form-label zRequired [for]="idEmail">Email</label>
+                <z-form-control [errorMessage]="emailControl.touched && isFieldInvalid('email') ? getErrorMessage('email') : ''">
+                    <input z-input type="email" [id]="idEmail" placeholder="Ej: example@example.com"
+                        formControlName="email"
+                        [zStatus]="emailControl.invalid && emailControl.touched ? 'error' : undefined" />
+                </z-form-control>
+                <z-form-message>No compartiremos tu email con nadie.</z-form-message>
+            </z-form-field>
+
+            <z-form-field>
+                <label z-form-label zRequired [for]="idPassword">Contraseña</label>
+                <z-form-control [errorMessage]="password.touched && isFieldInvalid('password') ? getErrorMessage('password') : ''">
+                    <input z-input type="password" [id]="idPassword" placeholder="Ej: password123"
+                        formControlName="password"
+                        [zStatus]="password.invalid && password.touched ? 'error' : undefined" />
+                </z-form-control>
+                <z-form-message>No compartiremos tu contraseña con nadie.</z-form-message>
+            </z-form-field>
+
+            <z-form-field>
+                <label z-form-label zRequired [for]="idPasswordConfirm">Repetir contraseña</label>
+                <z-form-control [errorMessage]="passwordConfirmation.touched && isFieldInvalid('password_confirmation') ? getErrorMessage('password_confirmation') : ''">
+                    <input z-input type="password" [id]="idPasswordConfirm" placeholder="Repite la contraseña"
+                        formControlName="password_confirmation"
+                        [zStatus]="passwordConfirmation.invalid && passwordConfirmation.touched ? 'error' : undefined" />
+                </z-form-control>
+                <z-form-message>Las contraseñas deben coincidir.</z-form-message>
+            </z-form-field>
+
+            <div card-footer class="flex w-full flex-col gap-2">
+                <button z-button zType="default" [zLoading]="isSubmitting()" type="submit">Crear cuenta</button>
+            </div>
+
+            <z-toaster />
+
+        </form>
+    </z-card>
+</div>
