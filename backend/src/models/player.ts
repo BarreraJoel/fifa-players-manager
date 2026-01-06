@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db/sequelize";
+import { makePaginate, PaginateOptions, PaginationConnection } from "sequelize-cursor-pagination";
 
 class Player extends Model {
     public id!: number;
@@ -81,7 +82,44 @@ class Player extends Model {
     public goalkeeping_speed!: number | null;
 
     public player_traits!: string | null;
+
+    declare static paginate: (options: PaginateOptions<Player>) => Promise<PaginationConnection<Player>>;
+
+    private static readonly identity: string[] = [
+        "id",
+        "fifa_version",
+        "long_name",
+        "player_face_url",
+        "nationality_name",
+        "club_name",
+        "age",
+        "player_positions",
+        "preferred_foot",
+    ];
+
+    private static readonly ratingStats: string[] = [
+        "overall",
+        "potential"
+    ];
+
+    private static readonly mainStats: string[] = [
+        "pace",
+        "shooting",
+        "passing",
+        "dribbling",
+        "defending",
+        "physic"
+    ];
+
+    public static readonly attributes: string[] = [
+        ...Player.identity,
+        ...Player.ratingStats,
+        ...Player.mainStats
+    ];
+
 }
+
+Player.paginate = makePaginate(Player);
 
 Player.init(
     {
