@@ -17,6 +17,11 @@ export class PlayerRepository implements IPlayerRepository {
 
         const paginate = toPaginate<Player>(result);
         return paginate;
+    }
 
+    public async getById(id: number): Promise<Player | null> {
+        return Player.findByPk(
+            id, { attributes: Player.attributes }
+        );
     }
 }

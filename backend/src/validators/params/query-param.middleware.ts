@@ -1,5 +1,5 @@
 import { query } from "express-validator";
-import { buildValidationMessage } from "../helpers/validation-messages";
+import { buildValidationMessage } from "../../helpers/validation-messages";
 
 export default [
     query("limit")

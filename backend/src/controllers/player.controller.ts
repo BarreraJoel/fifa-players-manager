@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PlayerService } from "../services/player.service";
+import { PlayerResource } from "../resources/user/player-resource";
 
 export class PlayerController {
 
@@ -22,6 +23,30 @@ export class PlayerController {
         message: "Jugadores obtenidos!",
         data: {
           players: players
+        }
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  public getPlayerById = async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
+      const parsedId = parseInt(id);
+      const player = await this.playerService.getPlayer(parsedId);
+
+      if (!player)
+        throw new Error("No se pudo obtener el jugador");
+
+      return response.status(200).json({
+        success: true,
+        message: "Jugador obtenido!",
+        data: {
+          player: PlayerResource.toResponse(player)
         }
       });
     } catch (error: any) {
