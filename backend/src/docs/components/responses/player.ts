@@ -14,4 +14,19 @@ export default {
             },
         }
     },
+    GetPlayerResponse: {
+        description: "Jugador obtenido",
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/components/schemas/SuccessSchema"
+                },
+                examples: {
+                    success: {
+                        $ref: "#/components/examples/GetPlayerSuccessExample"
+                    },
+                },
+            },
+        }
+    },
 }

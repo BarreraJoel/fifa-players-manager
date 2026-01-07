@@ -114,5 +114,34 @@ export default {
             }
         },
 
+    },
+    GetPlayerSuccessExample: {
+        summary: "Jugador obtenido",
+        value: {
+            status: true,
+            message: "Jugador obtenido!",
+            data: {
+                player: {
+                    id: 1,
+                    fifa_version: "15",
+                    long_name: "Lionel Andrés Messi Cuccittini",
+                    player_face_url: "https://cdn.sofifa.net/players/158/023/15_120.png",
+                    nationality_name: "Argentina",
+                    club_name: "FC Barcelona",
+                    age: 27,
+                    player_positions: "CF",
+                    preferred_foot: "Left",
+                    overall: 93,
+                    potential: 95,
+                    pace: 93,
+                    shooting: 89,
+                    passing: 86,
+                    dribbling: 96,
+                    defending: 27,
+                    physic: 63
+                }
+            }
+        },
+
     }
 }

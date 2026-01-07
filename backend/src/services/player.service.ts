@@ -1,5 +1,4 @@
 import { IPlayerRepository } from "../interfaces/player.interface";
-import Player from "../models/player";
 
 export class PlayerService {
 
@@ -13,5 +12,9 @@ export class PlayerService {
     where?: any
   ) {
     return this.playerRepository.findAllPaginate(limit, after, before, include, where);
+  }
+
+  public async getPlayer(id: number) {
+    return this.playerRepository.getById(id);
   }
 }

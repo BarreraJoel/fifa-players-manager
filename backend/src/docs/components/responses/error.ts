@@ -1,4 +1,5 @@
 export default {
+    // 400
     BadRequestResponse: {
         description: "Solicitud invalida",
         content: {
@@ -54,7 +55,7 @@ export default {
     },
     // 404
     ModelNotFoundResponse: {
-        description: "No se encontró el modelo",
+        description: "No se encontró el recurso",
         content: {
             "application/json": {
                 schema: {

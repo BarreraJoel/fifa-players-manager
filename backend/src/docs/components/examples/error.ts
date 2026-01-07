@@ -25,7 +25,7 @@ export default {
         },
     },
     NoAuthTokenExample: {
-        summary: "Sin token",
+        summary: "Token no enviado",
         value: {
             success: false,
             message: "No auth token",
@@ -51,7 +51,7 @@ export default {
         summary: "Recurso no encontrado",
         value: {
             success: false,
-            message: "No se encontró",
+            message: "Recurso no encontrado",
         },
     },
     // 422

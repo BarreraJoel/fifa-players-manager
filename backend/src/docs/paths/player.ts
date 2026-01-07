@@ -44,6 +44,9 @@ export default {
                 "200": {
                     $ref: "#/components/responses/PlayerListPaginateResponse"
                 },
+                "400": {
+                    $ref: "#/components/responses/BadRequestResponse"
+                },
                 "401": {
                     $ref: "#/components/responses/UnauthorizedResponse"
                 },
@@ -53,5 +56,48 @@ export default {
             }
         }
     },
+    "/api/players/{id}": {
+        get: {
+            summary: "Obtener un jugador",
+            description: "Obtener la información de un jugador",
+            tags: ["Players"],
+            security: [
+                {
+                    cookieAuth: [],
+                }
+            ],
+            parameters: [
+                {
+                    in: "path",
+                    name: "id",
+                    required: true,
+                    schema: {
+                        type: "integer",
+                        minimum: 1,
+                        description: "id del jugador",
+                        example: 10
+                    }
+                }
+            ],
+            responses: {
+                "200": {
+                    $ref: "#/components/responses/GetPlayerResponse"
+                },
+                "400": {
+                    $ref: "#/components/responses/BadRequestResponse"
+                },
+                "401": {
+                    $ref: "#/components/responses/UnauthorizedResponse"
+                },
+                "404": {
+                    $ref: "#/components/responses/ModelNotFoundResponse"
+                },
+                "500": {
+                    $ref: "#/components/responses/InternalServerErrorResponse"
+                },
+            }
+        }
+    },
+
 
 }

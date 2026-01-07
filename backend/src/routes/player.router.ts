@@ -4,7 +4,9 @@ import { PlayerController } from "../controllers/player.controller";
 import { PlayerRepository } from "../repositories/player.repository";
 import { PlayerService } from "../services/player.service";
 import validateRequestMiddleware from "../middlewares/validate-request.middleware";
-import queryParamPaginateValidator from "../middlewares/query-param.middleware";
+import queryParamPaginateValidator from "../validators/params/query-param.middleware";
+import { validateNumericParamId } from "../validators/params/param.validator";
+import { playerExists } from "../middlewares/player-exist.middleware";
 
 const router = Router();
 const playerRepository = new PlayerRepository;
@@ -18,6 +20,14 @@ router.get(
   queryParamPaginateValidator,
   validateRequestMiddleware,
   playerController.getPlayers
+);
+
+router.get(
+  '/:id',
+  validateNumericParamId("id"),
+  validateRequestMiddleware,
+  playerExists,
+  playerController.getPlayerById
 );
 
 export default router;
