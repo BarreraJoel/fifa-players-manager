@@ -103,6 +103,25 @@ Para la organización y seguimiento del desarrollo se utilizó **Jira** como her
   - Se retorna un error `400 Bad Request` con el detalle correspondiente.
 ---
 
+#### ✏️ Modificar un jugador
+- La modificación de un jugador se realiza mediante el endpoint `PUT /api/players/:id`.
+- El jugador a modificar se identifica mediante el parámetro de ruta `id`.
+- Antes de procesar la solicitud:
+  - Se valida que el `id` sea un entero positivo.
+  - Se validan los campos enviados en el cuerpo de la solicitud.
+  - Se descartan campos no contemplados en el contrato de la API.
+- El endpoint permite actualizar únicamente los atributos enviados.
+- En caso de éxito:
+  - Se actualiza el jugador en el sistema.
+  - Se retorna la información actualizada del jugador.
+- En caso de error de validación:
+  - Se retorna un error `400 (Bad Request)` con el detalle correspondiente.
+- Si el jugador no existe:
+  - Se retorna un error `404 (Not Found)`.
+- En caso de error interno:
+  - Se retorna un error `500 (Internal Server Error)`.
+---
+
 #### ⚠️ Manejo de errores
 - Se implementó un middleware global para manejar errores.
 - Las respuestas de error siguen una estructura consistente.

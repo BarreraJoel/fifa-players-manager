@@ -9,6 +9,7 @@ import { validateNumericParamId } from "../validators/params/param.validator";
 import { playerExists } from "../middlewares/player-exist.middleware";
 import { createPlayerValidator } from "../validators/player/create-player-validator";
 import { sanitizeBody } from "../middlewares/sanitize.middleware";
+import { updatePlayerValidator } from "../validators/player/update-player-validator";
 
 const router = Router();
 const playerRepository = new PlayerRepository;
@@ -38,6 +39,17 @@ router.post(
   validateRequestMiddleware,
   sanitizeBody,
   playerController.create
+);
+
+router.put(
+  '/:id',
+  validateNumericParamId("id"),
+  validateRequestMiddleware,
+  playerExists,
+  updatePlayerValidator,
+  validateRequestMiddleware,
+  sanitizeBody,
+  playerController.update
 );
 
 export default router;
