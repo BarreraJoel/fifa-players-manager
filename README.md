@@ -31,7 +31,7 @@ Para la organización y seguimiento del desarrollo se utilizó **Jira** como her
 ---
 
 #### 👤 Login de usuarios
-- El inicio de sesión se realiza mediante el endpoint `POST /api/auth/login`
+- El inicio de sesión se realiza mediante el endpoint `POST /api/auth/login`.
 - El usuario debe enviar sus credenciales (email y contraseña) en el cuerpo de la solicitud.
 - Antes de procesar la autenticación, se validan los campos obligatorios y el formato de los datos recibidos.
 - En caso de éxito:
@@ -39,6 +39,68 @@ Para la organización y seguimiento del desarrollo se utilizó **Jira** como her
     - Se genera un token JWT.
     - El token se almacena en una cookie HTTP.
 - En caso de error, se retorna un mensaje descriptivo junto con el código HTTP correspondiente.
+---
+
+#### 👤 Obtener usuario autenticado
+- La obtención del usuario autenticado se realiza mediante el endpoint `GET /api/auth/me`.
+- El endpoint requiere que el usuario tenga una sesión activa.
+- La autenticación se valida mediante un token JWT almacenado en una cookie HTTP.
+- No se requiere enviar información en el cuerpo de la solicitud.
+- En caso de éxito:
+  - Se retorna la información del usuario autenticado.
+  - No se incluyen datos sensibles.
+- En caso de que el usuario no esté autenticado o el token sea inválido:
+  - Se retorna un error `401 Unauthorized`.
+---
+
+#### 🚪 Cerrar sesión
+- El cierre de sesión se realiza mediante el endpoint `DELETE /api/auth/logout`.
+- El endpoint requiere que el usuario tenga una sesión activa.
+- La operación elimina la cookie que contiene el token JWT.
+- No se retorna contenido en el cuerpo de la respuesta.
+- En caso de éxito:
+  - Se retorna el código `204 No Content`.
+- Si no existe una sesión activa:
+  - Se retorna un error `401 Unauthorized`
+---
+
+#### 📋 Obtener listado de jugadores
+- La obtención del listado de jugadores se realiza mediante el endpoint `GET /api/players`.
+- El endpoint soporta paginación para manejar grandes volúmenes de datos.
+- La paginación se realiza mediante parámetros de consulta:
+  - limit
+  - after
+  - before
+- El listado retorna un conjunto reducido de atributos relevantes del jugador.
+- Antes de procesar la solicitud:
+  - Se validan y normalizan los parámetros de paginación.
+- En caso de éxito:
+  - Se retorna el listado paginado de jugadores junto con la información de navegación.
+---
+
+#### 👤 Obtener un jugador específico
+- La obtención de un jugador específico se realiza mediante el endpoint `GET /api/players/:id`.
+- El jugador se identifica mediante un id.
+- Antes de procesar la solicitud:
+  - Se valida que el id sea un entero positivo.
+- En caso de éxito:
+  - Se retorna la información detallada del jugador solicitado.
+- Si el jugador no existe:
+  - Se retorna un error `404 Not Found`.
+
+---
+
+#### ➕ Crear un jugador
+- La creación de un jugador se realiza mediante el endpoint `POST /api/players`.
+- El usuario debe enviar la información del jugador en el cuerpo de la solicitud.
+- Antes de procesar la creación:
+  - Se validan los campos obligatorios y el formato de los datos recibidos.
+  - Se descartan campos no contemplados en el contrato de la API.
+- En caso de éxito:
+  - Se crea el jugador en el sistema.
+  - Se retorna el código `201 Created` junto con la información del jugador creado.
+- En caso de error de validación:
+  - Se retorna un error `400 Bad Request` con el detalle correspondiente.
 ---
 
 #### ⚠️ Manejo de errores
