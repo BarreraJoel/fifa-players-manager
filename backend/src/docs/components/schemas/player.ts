@@ -22,6 +22,43 @@ export default {
         },
     },
 
+    CreatePlayerRequestSchema: {
+        type: "object",
+        properties: {
+            fifa_version: { type: "string", example: "18" },
+            fifa_update: { type: "string", example: "4" },
+            long_name: { type: "string", example: "Enzo Perez" },
+            player_face_url: { type: "string", example: "https://img.a.transfermarkt.technology/portrait/big/56066-1625771376.png?lm=1" },
+            overall: { type: "integer", example: 70 },
+            potential: { type: "integer", example: 72 },
+            age: { type: "integer", example: 31 },
+            player_positions: { type: "string", example: "MCD" },
+            nationality_name: { type: "string", example: "Argentina" },
+            club_name: { type: "string", example: "River Plate" },
+            preferred_foot: {
+                type: "string",
+                enum: ["Left", "Right"],
+                example: "Left"
+            },
+            pace: { type: "integer", example: 70 },
+            shooting: { type: "integer", example: 55 },
+            passing: { type: "integer", example: 77 },
+            dribbling: { type: "integer", example: 30 },
+            defending: { type: "integer", example: 50 },
+            physic: { type: "integer", example: 75 },
+        },
+        required: [
+            "fifa_version",
+            "fifa_update",
+            "long_name",
+            "player_face_url",
+            "age",
+            "player_positions",
+            "overall",
+            "potential",
+        ],
+    },
+
 
 
 };

@@ -88,6 +88,7 @@ class Player extends Model {
     private static readonly identity: string[] = [
         "id",
         "fifa_version",
+        "fifa_update",
         "long_name",
         "player_face_url",
         "nationality_name",

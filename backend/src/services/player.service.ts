@@ -1,3 +1,4 @@
+import { CreatePlayerDto } from "../dto/player/create-player.dto";
 import { IPlayerRepository } from "../interfaces/player.interface";
 
 export class PlayerService {
@@ -17,4 +18,9 @@ export class PlayerService {
   public async getPlayer(id: number) {
     return this.playerRepository.getById(id);
   }
+
+  public async createPlayer(dto: CreatePlayerDto) {
+    return this.playerRepository.create(dto);
+  }
+  
 }

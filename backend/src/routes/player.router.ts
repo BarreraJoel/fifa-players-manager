@@ -7,6 +7,8 @@ import validateRequestMiddleware from "../middlewares/validate-request.middlewar
 import queryParamPaginateValidator from "../validators/params/query-param.middleware";
 import { validateNumericParamId } from "../validators/params/param.validator";
 import { playerExists } from "../middlewares/player-exist.middleware";
+import { createPlayerValidator } from "../validators/player/create-player-validator";
+import { sanitizeBody } from "../middlewares/sanitize.middleware";
 
 const router = Router();
 const playerRepository = new PlayerRepository;
@@ -28,6 +30,14 @@ router.get(
   validateRequestMiddleware,
   playerExists,
   playerController.getPlayerById
+);
+
+router.post(
+  '/',
+  createPlayerValidator,
+  validateRequestMiddleware,
+  sanitizeBody,
+  playerController.create
 );
 
 export default router;
