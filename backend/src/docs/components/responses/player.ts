@@ -29,4 +29,19 @@ export default {
             },
         }
     },
+    CreatePlayerResponse: {
+        description: "Jugador creado",
+        content: {
+            "application/json": {
+                schema: {
+                    $ref: "#/components/schemas/SuccessSchema"
+                },
+                examples: {
+                    success: {
+                        $ref: "#/components/examples/CreatePlayerSuccessExample"
+                    },
+                },
+            },
+        }
+    },
 }

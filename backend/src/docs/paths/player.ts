@@ -98,6 +98,50 @@ export default {
             }
         }
     },
+    "/api/players/": {
+        post: {
+            summary: "Crear jugador",
+            description: "Permite crear un jugador personalizado",
+            tags: ["Players"],
+            security: [
+                {
+                    cookieAuth: [],
+                }
+            ],
+            requestBody: {
+                required: true,
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/CreatePlayerRequestSchema"
+                        },
+                        examples: {
+                            minimal: {
+                                $ref: "#/components/examples/CreatePlayerMinimalExample"
+                            },
+                            full: {
+                                $ref: "#/components/examples/CreatePlayerFullExample"
+                            }
+                        }
+                    }
+                }
+            },
+            responses: {
+                "200": {
+                    $ref: "#/components/responses/CreatePlayerResponse"
+                },
+                "400": {
+                    $ref: "#/components/responses/BadRequestResponse"
+                },
+                "401": {
+                    $ref: "#/components/responses/UnauthorizedResponse"
+                },
+                "500": {
+                    $ref: "#/components/responses/InternalServerErrorResponse"
+                },
+            }
+        }
+    },
 
 
 }

@@ -124,6 +124,7 @@ export default {
                 player: {
                     id: 1,
                     fifa_version: "15",
+                    fifa_update: "2",
                     long_name: "Lionel Andrés Messi Cuccittini",
                     player_face_url: "https://cdn.sofifa.net/players/158/023/15_120.png",
                     nationality_name: "Argentina",
@@ -141,6 +142,72 @@ export default {
                     physic: 63
                 }
             }
+        },
+    },
+    CreatePlayerSuccessExample: {
+        summary: "Jugador creado",
+        value: {
+            status: true,
+            message: "Jugador creado!",
+            data: {
+                player: {
+                    id: 1,
+                    fifa_version: "18",
+                    fifa_update: "4",
+                    long_name: "Enzo Perez",
+                    player_face_url: "https://img.a.transfermarkt.technology/portrait/big/56066-1625771376.png?lm=1",
+                    nationality_name: "Argentina",
+                    club_name: "River Plate",
+                    age: 31,
+                    player_positions: "MCD",
+                    preferred_foot: "Left",
+                    overall: 70,
+                    potential: 72,
+                    pace: 70,
+                    shooting: 55,
+                    passing: 77,
+                    dribbling: 30,
+                    defending: 50,
+                    physic: 75
+                }
+            }
+        },
+    },
+    CreatePlayerFullExample: {
+        summary: "Crear con los parametros completos",
+        value: {
+            id: 1,
+            fifa_version: "18",
+            fifa_update: "4",
+            long_name: "Enzo Perez",
+            player_face_url: "https://img.a.transfermarkt.technology/portrait/big/56066-1625771376.png?lm=1",
+            nationality_name: "Argentina",
+            club_name: "River Plate",
+            age: 31,
+            player_positions: "MCD",
+            preferred_foot: "Left",
+            overall: 70,
+            potential: 72,
+            pace: 70,
+            shooting: 55,
+            passing: 77,
+            dribbling: 30,
+            defending: 50,
+            physic: 75
+        },
+    },
+    CreatePlayerMinimalExample: {
+        summary: "Crear con los parametros minimos",
+        value: {
+            fifa_version: "15",
+            fifa_update: "2",
+            long_name: "Rodrigo Mora",
+            player_face_url: "https://as01.epimg.net/img/comunes/fotos/fichas/deportistas/r/rod/large/29621.png",
+            nationality_name: "Uruguay",
+            age: 29,
+            player_positions: "CF",
+            overall: 72,
+            potential: 74
         },
 
     }
