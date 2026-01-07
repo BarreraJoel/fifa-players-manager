@@ -5,6 +5,7 @@ export class PlayerResource {
         return {
             id: player.id,
             fifa_version: player.fifa_version,
+            fifa_update: player.fifa_update,
             long_name: player.long_name,
             player_face_url: player.player_face_url,
             nationality_name: player.nationality_name,

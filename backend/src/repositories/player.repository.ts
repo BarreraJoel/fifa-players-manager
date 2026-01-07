@@ -1,4 +1,5 @@
 import { CreatePlayerDto } from "../dto/player/create-player.dto";
+import { UpdatePlayerDto } from "../dto/player/update-player.dto";
 import { toPaginate } from "../helpers/paginate";
 import { IPaginate } from "../interfaces/paginate.interface";
 import { IPlayerRepository } from "../interfaces/player.interface";
@@ -46,5 +47,16 @@ export class PlayerRepository implements IPlayerRepository {
             defending: dto.defending,
             physic: dto.physic,
         });
+    }
+
+    public async update(dto: UpdatePlayerDto): Promise<Player | null> {
+        const result = await Player.update(dto, {
+            where: { id: dto.id }
+        });
+
+        if (!(result.length > 0))
+            return null;
+
+        return this.getById(dto.id);
     }
 }

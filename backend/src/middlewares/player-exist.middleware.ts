@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import Player from "../models/player";
 
 export const playerExists = (async (req: Request, res: Response, next: NextFunction) => {
-    const playerId = parseInt(req.params.id);
+    const { id } = req.params;
+    const playerId = parseInt(id);
     if (!await Player.findByPk(playerId)) {
         return res.status(404).json({
             success: false,

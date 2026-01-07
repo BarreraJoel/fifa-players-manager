@@ -209,6 +209,34 @@ export default {
             overall: 72,
             potential: 74
         },
-
-    }
+    },
+    UpdatePlayerSuccessExample: {
+        summary: "Jugador actualizado",
+        value: {
+            status: true,
+            message: "Jugador actualizado!",
+            data: {
+                player: {
+                    id: 10,
+                    fifa_version: "19",
+                    fifa_update: "5",
+                    long_name: "Enzo Perez modificado",
+                    player_face_url: "https://img.a.transfermarkt.technology/portrait/big/56066-1625771376.png?lm=1",
+                    nationality_name: "Argentina",
+                    club_name: "River Plate",
+                    age: 32,
+                    player_positions: "MCD",
+                    preferred_foot: "Left",
+                    overall: 72,
+                    potential: 74,
+                    pace: 72,
+                    shooting: 57,
+                    passing: 79,
+                    dribbling: 32,
+                    defending: 53,
+                    physic: 77
+                }
+            }
+        },
+    },
 }

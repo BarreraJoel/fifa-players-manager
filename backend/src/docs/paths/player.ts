@@ -96,6 +96,56 @@ export default {
                     $ref: "#/components/responses/InternalServerErrorResponse"
                 },
             }
+        },
+        put: {
+            summary: "Actualizar jugador",
+            description: "Permite actualizar un jugador",
+            tags: ["Players"],
+            security: [
+                {
+                    cookieAuth: [],
+                }
+            ],
+            parameters: [
+                {
+                    in: "path",
+                    name: "id",
+                    required: true,
+                    schema: {
+                        type: "integer",
+                        minimum: 1,
+                        description: "id del jugador",
+                        example: 10
+                    }
+                }
+            ],
+            requestBody: {
+                required: true,
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/UpdatePlayerRequestSchema"
+                        }
+                    }
+                }
+            },
+            responses: {
+                "200": {
+                    $ref: "#/components/responses/UpdatePlayerResponse"
+                },
+                "400": {
+                    $ref: "#/components/responses/BadRequestResponse"
+                },
+                "401": {
+                    $ref: "#/components/responses/UnauthorizedResponse"
+                },
+                "404": {
+                    $ref: "#/components/responses/ModelNotFoundResponse"
+                },
+                "500": {
+                    $ref: "#/components/responses/InternalServerErrorResponse"
+                },
+            }
         }
     },
     "/api/players/": {
@@ -142,6 +192,5 @@ export default {
             }
         }
     },
-
 
 }

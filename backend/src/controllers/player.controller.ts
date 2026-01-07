@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { PlayerService } from "../services/player.service";
 import { PlayerResource } from "../resources/user/player-resource";
 import { CreatePlayerDto } from "../dto/player/create-player.dto";
+import { UpdatePlayerDto } from "../dto/player/update-player.dto";
 
 export class PlayerController {
 
@@ -72,6 +73,32 @@ export class PlayerController {
         message: "Jugador creado!",
         data: {
           player: PlayerResource.toResponse(player)
+        }
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  public update = async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
+      const parsedPlayerId = parseInt(id);
+      const dto = request.body as UpdatePlayerDto;
+      dto.id = parsedPlayerId;
+      const playerUpdated = await this.playerService.updatePlayer(dto);
+
+      if (!playerUpdated)
+        throw new Error("No se pudo editar el jugador");
+
+      return response.status(200).json({
+        success: true,
+        message: "Jugador actualizado!",
+        data: {
+          player: PlayerResource.toResponse(playerUpdated)
         }
       });
     } catch (error: any) {

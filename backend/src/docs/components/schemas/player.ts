@@ -59,6 +59,33 @@ export default {
         ],
     },
 
+    UpdatePlayerRequestSchema: {
+        type: "object",
+        properties: {
+            fifa_version: { type: "string", example: "19" },
+            fifa_update: { type: "string", example: "5" },
+            long_name: { type: "string", example: "Enzo Perez modificado" },
+            player_face_url: { type: "string", example: "https://img.a.transfermarkt.technology/portrait/big/56066-1625771376.png?lm=1" },
+            overall: { type: "integer", example: 72 },
+            potential: { type: "integer", example: 74 },
+            age: { type: "integer", example: 32 },
+            player_positions: { type: "string", example: "MCD" },
+            nationality_name: { type: "string", example: "Argentina" },
+            club_name: { type: "string", example: "River Plate" },
+            preferred_foot: {
+                type: "string",
+                enum: ["Left", "Right"],
+                example: "Left"
+            },
+            pace: { type: "integer", example: 72 },
+            shooting: { type: "integer", example: 57 },
+            passing: { type: "integer", example: 79 },
+            dribbling: { type: "integer", example: 32 },
+            defending: { type: "integer", example: 53 },
+            physic: { type: "integer", example: 77 },
+        },
+    },
+
 
 
 };

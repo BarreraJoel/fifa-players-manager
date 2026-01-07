@@ -1,4 +1,5 @@
 import { CreatePlayerDto } from "../dto/player/create-player.dto";
+import { UpdatePlayerDto } from "../dto/player/update-player.dto";
 import { IPlayerRepository } from "../interfaces/player.interface";
 
 export class PlayerService {
@@ -21,6 +22,10 @@ export class PlayerService {
 
   public async createPlayer(dto: CreatePlayerDto) {
     return this.playerRepository.create(dto);
+  }
+
+  public async updatePlayer(dto: UpdatePlayerDto) {
+    return this.playerRepository.update(dto);
   }
   
 }
