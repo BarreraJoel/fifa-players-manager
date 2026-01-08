@@ -1,0 +1,56 @@
+
+<div class="w-full">
+    <div class="overflow-hidden rounded-md border">
+        <table z-table>
+            <thead z-table-header>
+                <tr z-table-row >
+                    <th z-table-head>Jugador</th>
+                    <th z-table-head>Nombre</th>
+                    <th z-table-head>Version</th>
+                    <th z-table-head>Actualización</th>
+                    <th z-table-head>Nacionalidad</th>
+                    <th z-table-head>Club</th>
+                    <th z-table-head>Edad</th>
+                    <th z-table-head>Posiciones</th>
+                    <th z-table-head>Pierna hábil</th>
+                    <th z-table-head>General</th>
+                    <th z-table-head>Acción</th>
+                </tr>
+            </thead>
+            <tbody z-table-body>
+                @if(playerService.playersPaginate$().items.length > 0) {
+                    @for (player of playerService.playersPaginate$().items; track player.id) {
+                        <tr z-table-row>
+                            <td z-table-cell>
+                                <img [src]="player.player_face_url" alt="foto del jugador">
+                                <div>
+                                </div>
+                            </td>
+                            <td z-table-cell>
+                                {{player.long_name}}
+                            </td>
+                            <td z-table-cell>{{player.fifa_version}}</td>
+                            <td z-table-cell>{{player.fifa_update}}</td>
+                            <td z-table-cell>{{player.nationality_name}}</td>
+                            <td z-table-cell>{{player.club_name}}</td>
+                            <td z-table-cell>{{player.age}}</td>
+                            <td z-table-cell>{{player.player_positions}}</td>
+                            <td z-table-cell>{{player.preferred_foot}}</td>
+                            <td z-table-cell>{{player.overall}}</td>
+                            <z-button zType="link">
+                                Editar
+                            </z-button>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <z-pagination class="flex m-auto justify-center items-center" [zDisabled]="playerService.playersPaginate$().items.length > 0" [zTotal]="playerService.playersPaginate$().total_count/rowsPerPage" [(zPageIndex)]="currentPage" [zContent]="content"/>
+        <ng-template #content>
+            <z-pagination-previous (click)="goToPrevious($event)" [zDisabled]="currentPage() === 1" />
+            <z-pagination-next (click)="goToNext($event)" [zDisabled]="currentPage() === playerService.playersPaginate$().total_count" />
+        </ng-template>
+    </div>
+
+
+</div>
