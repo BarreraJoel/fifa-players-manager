@@ -1,0 +1,12 @@
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+    {
+        path: "",
+        loadComponent: () => import('./dashboard/dashboard.component').then(c => c.DashboardComponent)
+    },
+    {
+        path: "players",
+        loadChildren: () => import('./players/player.routes').then(r => r.routes)
+    }
+];

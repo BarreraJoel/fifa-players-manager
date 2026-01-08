@@ -9,9 +9,8 @@ import { Validator } from '@/utils/validators';
 import { toast } from 'ngx-sonner';
 import { ZardToastComponent } from '@/shared/components/toast/toast.component';
 import { AuthService } from '@/services/api/auth/auth.service';
-import { ApiError, ApiFieldError } from '@/interfaces/api';
+import { ApiFieldError } from '@/interfaces/api';
 import { Router } from '@angular/router';
-import { LoginDto } from '@/interfaces/auth';
 
 type LoginForm = {
   email: FormControl<string>;
@@ -68,7 +67,7 @@ export class LoginFormComponent {
         });
 
         setTimeout(() => {
-          this.redirect('/dashboard');
+          this.redirect('/');
           this.reset()
         }, 3000);
 

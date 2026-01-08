@@ -9,5 +9,11 @@ export const API_CONFIG = {
             me: "/auth/me",
             logout: "/auth/logout",
         },
+        players: {
+            getPlayers: "/players",
+            getPlayer: "/players/:id",
+            createPlayer: "/players",
+            editPlayer: "/players/:id",
+        },
     },
 } as const;
