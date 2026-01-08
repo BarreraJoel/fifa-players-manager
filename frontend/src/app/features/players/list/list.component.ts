@@ -4,6 +4,7 @@ import { ZardTableImports } from '@/shared/components/table/table.imports';
 import { ZardPaginationComponent, ZardPaginationPreviousComponent, ZardPaginationNextComponent } from "@/shared/components/pagination/pagination.component";
 import { PlayerService } from '@/services/player/player.service';
 import { Router } from '@angular/router';
+import { CsvService } from '@/services/csv.service';
 
 @Component({
   selector: 'app-list',
@@ -19,7 +20,9 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
   protected currentPage = signal(1);
+  protected isExporting = signal(false);
   protected playerService: PlayerService = inject(PlayerService);
+  protected csvService: CsvService = inject(CsvService);
   protected rowsPerPage = 100;
 
   constructor(private router: Router) { }
@@ -59,6 +62,13 @@ export class ListComponent implements OnInit {
 
   protected redirect(route: string) {
     this.router.navigateByUrl(route);
+  }
+
+  protected async exportToCsv() {
+    this.csvService.exportCsv(
+      this.playerService.playersPaginate$().items,
+      'players.csv'
+    );
   }
 
 }

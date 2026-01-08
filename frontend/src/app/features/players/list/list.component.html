@@ -1,7 +1,6 @@
-
-<div class="w-full">
-    <div class="overflow-hidden rounded-md border">
-        <table z-table>
+<div class="w-4/5 m-auto">
+    <div class="overflow-hidden rounded-md border mt-5">
+        <table z-table id="players-table">
             <thead z-table-header>
                 <tr z-table-row >
                     <th z-table-head>Jugador</th>
@@ -52,5 +51,10 @@
         </ng-template>
     </div>
 
+    <div class="flex flex-row-reverse mr-5 mt-5">
+        <button z-button zType="default" [zLoading]="isExporting()"  (click)="exportToCsv()" type="button">
+            Exportar a CSV
+        </button>
+    </div>
 
 </div>
