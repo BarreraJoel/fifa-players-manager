@@ -59,4 +59,21 @@ export default {
             },
         }
     },
+    GetPlayerImageResponse: {
+        description: "Imagen obtenida",
+        content: {
+            "image/jpeg": {
+                schema: {
+                    type: "string",
+                    format: "binary"
+                },
+            },
+            "image/png": {
+                schema: {
+                    type: "string",
+                    format: "binary"
+                }
+            },
+        }
+    },
 }

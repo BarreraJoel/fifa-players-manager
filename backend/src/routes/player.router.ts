@@ -26,6 +26,14 @@ router.get(
 );
 
 router.get(
+  "/:id/image",
+  validateNumericParamId("id"),
+  validateRequestMiddleware,
+  playerExists,
+  playerController.getImage
+);
+
+router.get(
   '/:id',
   validateNumericParamId("id"),
   validateRequestMiddleware,
