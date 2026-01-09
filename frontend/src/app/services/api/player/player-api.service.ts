@@ -1,5 +1,5 @@
 import { API_CONFIG } from '@/config/api.config';
-import { GetPlayersPaginateResponse } from '@/interfaces/player';
+import { GetPlayerByIdResponse, GetPlayersPaginateResponse } from '@/interfaces/player';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,5 +21,21 @@ export class PlayerApiService {
     return this.httpClient.get<GetPlayersPaginateResponse>(
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.players.getPlayers}${queryParams}`, { observe: "response", withCredentials: true }
     );
+  }
+
+  public getPlayerById(playerId: number): Observable<HttpResponse<GetPlayerByIdResponse>> {
+    return this.httpClient.get<GetPlayerByIdResponse>(
+      `${API_CONFIG.baseURL}${API_CONFIG.endpoints.players.getPlayer.replace(
+        ':id',
+        playerId.toString()
+      )}`, { observe: "response", withCredentials: true }
+    );
+  }
+
+  public getPlayerImage(playerId: number) {
+    return `${API_CONFIG.baseURL}${API_CONFIG.endpoints.players.getPlayerImage.replace(
+      ':id',
+      playerId.toString()
+    )}`;
   }
 }

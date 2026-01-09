@@ -12,6 +12,7 @@ export const API_CONFIG = {
         players: {
             getPlayers: "/players",
             getPlayer: "/players/:id",
+            getPlayerImage: "/players/:id/image",
             createPlayer: "/players",
             editPlayer: "/players/:id",
         },

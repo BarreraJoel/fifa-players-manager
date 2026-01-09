@@ -21,11 +21,13 @@
                     @for (player of playerService.playersPaginate$().items; track player.id) {
                         <tr z-table-row>
                             <td z-table-cell>
-                                <img [src]="player.player_face_url" alt="foto del jugador">
-                                <div>
-                                </div>
+                                <img 
+                                [src]="loadImage(player.id)"
+                                class="h-16"
+                                (error)="onImageError($event)"
+                                alt="foto del jugador">
                             </td>
-                            <td z-table-cell>
+                            <td z-table-cell class="cursor-pointer hover:underline" (click)="redirect(`/players/${player.id}`)">
                                 {{player.long_name}}
                             </td>
                             <td z-table-cell>{{player.fifa_version}}</td>
