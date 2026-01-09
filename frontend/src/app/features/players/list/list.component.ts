@@ -40,7 +40,6 @@ export class ListComponent implements OnInit {
       });
     }
     this.currentPage.set(this.currentPage() - 1);
-    console.log(this.currentPage());
   }
 
   protected goToNext($event: any) {
@@ -52,9 +51,15 @@ export class ListComponent implements OnInit {
       });
     }
     this.currentPage.set(this.currentPage() + 1);
-    console.log(this.currentPage());
   }
 
+  protected onImageError(e: Event) {
+    (e.target as HTMLImageElement).src = '/assets/player.png';
+  }
+
+  protected loadImage(playerId: number) {
+    return this.playerService.loadPlayerImage(playerId);
+  }
 
   async ngOnInit() {
     this.playerService.loadPlayers();

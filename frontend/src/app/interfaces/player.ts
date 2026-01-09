@@ -29,3 +29,6 @@ export interface PlayersPaginate {
 } { }
 
 export interface GetPlayersPaginateResponse extends ApiResponse<PlayersPaginate> { }
+export interface GetPlayerByIdResponse extends ApiResponse<{
+  player: Player
+}> { }
