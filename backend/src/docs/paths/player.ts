@@ -148,6 +148,44 @@ export default {
             }
         }
     },
+    "/api/players/{id}/image": {
+        get: {
+            summary: "Obtener la imagen de un jugador",
+            description: "Retorna la imagen del jugador en formato binario",
+            tags: ["Players"],
+            security: [{ cookieAuth: [] }],
+            parameters: [
+                {
+                    in: "path",
+                    name: "id",
+                    required: true,
+                    schema: {
+                        type: "integer",
+                        minimum: 1,
+                        description: "id del jugador",
+                        example: 10
+                    }
+                }
+            ],
+            responses: {
+                "200": {
+                    $ref: "#/components/responses/GetPlayerImageResponse"
+                },
+                "400": {
+                    $ref: "#/components/responses/BadRequestResponse"
+                },
+                "401": {
+                    $ref: "#/components/responses/UnauthorizedResponse"
+                },
+                "404": {
+                    $ref: "#/components/responses/ModelNotFoundResponse"
+                },
+                "500": {
+                    $ref: "#/components/responses/InternalServerErrorResponse"
+                },
+            }
+        },
+    },
     "/api/players/": {
         post: {
             summary: "Crear jugador",

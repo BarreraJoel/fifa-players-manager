@@ -108,4 +108,27 @@ export class PlayerController {
       });
     }
   };
+
+  public getImage = async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
+      const parsedPlayerId = parseInt(id);
+      const player = await this.playerService.getPlayer(parsedPlayerId);
+
+      if (!player?.player_face_url)
+        return response.status(404).send();
+
+      const imageUrl = player.player_face_url;
+      const imageResponse = await fetch(imageUrl);
+
+      response.setHeader('Content-Type', imageResponse.headers.get('content-type')!);
+      response.send(Buffer.from(await imageResponse.arrayBuffer()));
+    } catch (error: any) {
+      return response.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
 }
