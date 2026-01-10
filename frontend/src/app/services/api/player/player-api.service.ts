@@ -1,5 +1,5 @@
 import { API_CONFIG } from '@/config/api.config';
-import { CreatePlayerRequest, CreatePlayerResponse, GetPlayerByIdResponse, GetPlayersPaginateResponse } from '@/interfaces/player';
+import { CreatePlayerRequest, CreatePlayerResponse, EditPlayerRequest, EditPlayerResponse, GetPlayerByIdResponse, GetPlayersPaginateResponse } from '@/interfaces/player';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -45,5 +45,14 @@ export class PlayerApiService {
       data, { observe: "response" }
     );
   }
-  
+
+  public edit(playerId: number, data: EditPlayerRequest): Observable<HttpResponse<EditPlayerResponse>> {
+    return this.httpClient.put<EditPlayerResponse>(
+      `${API_CONFIG.baseURL}${API_CONFIG.endpoints.players.editPlayer.replace(
+        ':id',
+        playerId.toString()
+      )}`, data, { observe: "response" }
+    );
+  }
+
 }

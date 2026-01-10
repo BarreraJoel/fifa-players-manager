@@ -5,6 +5,8 @@ import { ZardPaginationComponent, ZardPaginationPreviousComponent, ZardPaginatio
 import { PlayerService } from '@/services/player/player.service';
 import { Router } from '@angular/router';
 import { CsvService } from '@/services/csv.service';
+import { PositionsPipe } from '@/pipes/positions.pipe';
+import { PreferredFootPipe } from '@/pipes/preferred-foot.pipe';
 
 @Component({
   selector: 'app-list',
@@ -14,6 +16,8 @@ import { CsvService } from '@/services/csv.service';
     ZardPaginationComponent,
     ZardPaginationPreviousComponent,
     ZardPaginationNextComponent,
+    PositionsPipe,
+    PreferredFootPipe
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'

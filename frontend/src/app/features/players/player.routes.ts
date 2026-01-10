@@ -13,4 +13,8 @@ export const routes: Routes = [
         path: ":id",
         loadComponent: () => import('./show-player/show-player.component').then(c => c.ShowPlayerComponent)
     },
+    {
+        path: ":id/edit",
+        loadComponent: () => import('./edit-player/edit-player.component').then(c => c.EditPlayerComponent)
+    },
 ];

@@ -17,14 +17,13 @@
             </div>
 
             <div class="space-y-3 px-5 pb-5">
-                <!-- Posiciones / Pierna hábil -->
                 <div class="grid grid-cols-2 gap-3 text-sm">
                     <div class="space-y-1 flex flex-col">
                         <span class="text-xs tracking-wide text-muted-foreground">
                             Posiciones
                         </span>
                         <z-badge zType="secondary">
-                            {{ player()!.player_positions }}
+                            {{ player()!.player_positions|positions}}
                         </z-badge>
                     </div>
 
@@ -38,7 +37,6 @@
                     </div>
                 </div>
 
-                <!-- Stats básicas -->
                 <div class="grid grid-cols-2 gap-3 text-sm">
                     <div>
                         <span class="text-muted-foreground">Edad</span>
@@ -67,8 +65,8 @@
             <z-divider zOrientation="vertical" />
         </div>
         <div class="p-6 flex flex-col justify-center items-center">
-            <h6 class="mb-4 text-sm font-semibold uppercase tracking-wide self-start">
-                Estadísticas
+            <h6 class="mb-4 text-sm font-semibold tracking-wide self-start">
+                Habilidades
             </h6>
 
             <div class="w-105 h-105">

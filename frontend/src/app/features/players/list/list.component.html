@@ -35,10 +35,10 @@
                             <td z-table-cell>{{player.nationality_name}}</td>
                             <td z-table-cell>{{player.club_name}}</td>
                             <td z-table-cell>{{player.age}}</td>
-                            <td z-table-cell>{{player.player_positions}}</td>
-                            <td z-table-cell>{{player.preferred_foot}}</td>
+                            <td z-table-cell>{{player.player_positions|positions}}</td>
+                            <td z-table-cell>{{player.preferred_foot|preferredFoot}}</td>
                             <td z-table-cell>{{player.overall}}</td>
-                            <z-button zType="link">
+                            <z-button zType="link" (click)="redirect(`/players/${player.id}/edit`)">
                                 Editar
                             </z-button>
                         </tr>
