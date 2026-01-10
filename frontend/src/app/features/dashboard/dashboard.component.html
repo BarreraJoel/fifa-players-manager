@@ -1,1 +1,88 @@
-<p>dashboard works!</p>
+<div class="px-6 py-6 space-y-10">
+
+    <section class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <z-card class="p-4">
+            <p class="text-sm text-muted-foreground">Jugadores</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.players_count}}</p>
+            }
+        </z-card>
+
+        <z-card class="p-4">
+            <p class="text-sm text-muted-foreground">Promedio General</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.overall_average?.toFixed(2)}}</p>
+            }
+        </z-card>
+
+        <z-card class="p-4">
+            <p class="text-sm text-muted-foreground">Mejor general</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.top_overall}}</p>
+            }
+        </z-card>
+
+        <z-card class="p-4">
+            <p class="text-sm text-muted-foreground">Potencial más alto</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.high_potential}}</p>
+            }
+        </z-card>
+    </section>
+
+    <section class="space-y-4">
+        <h2 class="text-lg font-semibold">Jugadores con mayor puntuación general</h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            @for (player of metricsService.bestPlayers$(); track player.id) {
+            <z-card class="overflow-hidden rounded-xl border shadow-sm hover:shadow-md">
+                <div class="h-32 w-full flex items-center justify-center">
+                    <img 
+                    [src]="loadImage(player.id)" 
+                    (error)="onImageError($event)"
+                    alt="{{ player.long_name }}" class="h-full object-contain" />
+                </div>
+
+                <div class="p-3 space-y-2">
+                    <div>
+                        <h3 class="text-sm font-semibold leading-tight truncate">
+                            {{ player.long_name }}
+                        </h3>
+                        <p class="text-xs text-muted-foreground truncate">
+                            {{ player.player_positions }}
+                        </p>
+                    </div>
+
+                    <div class="flex justify-between text-sm">
+                        <div class="flex items-center gap-1">
+                            <z-icon name="star" zType="star" />
+                            <span>{{ player.overall }}</span>
+                        </div>
+
+                        <div class="flex items-center gap-1">
+                            <z-icon name="arrow-up" zType="arrow-up" />
+                            <span>{{ player.potential }}</span>
+                        </div>
+                    </div>
+
+                    <z-button zType="default" class="w-full h-8 text-xs" (click)="redirect(`/players/${player.id}`)">
+                        Ver
+                    </z-button>
+                </div>
+            </z-card>
+            }
+        </div>
+    </section>
+</div>
