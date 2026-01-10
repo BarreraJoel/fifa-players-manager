@@ -9,31 +9,11 @@ import { ZardToastComponent } from "@/shared/components/toast/toast.component";
 import { ZardSelectItemComponent } from "@/shared/components/select/select-item.component";
 import { ZardSelectComponent } from "@/shared/components/select/select.component";
 import { ApiFieldError } from '@/interfaces/api';
-import { ZardFormImports } from '@/shared/components/form/form.imports';
 import { ZardInputDirective } from '@/shared/components/input/input.directive';
 import { ZardButtonComponent } from '@/shared/components/button/button.component';
 import { ZardCheckboxComponent } from "@/shared/components/checkbox/checkbox.component";
-
-type CreatePlayerForm = {
-  fifa_version: FormControl<string | null>,
-  fifa_update: FormControl<string | null>,
-  long_name: FormControl<string | null>,
-  player_face_url: FormControl<string | null>,
-  age: FormControl<number | null>,
-  overall: FormControl<number | null>,
-  potential: FormControl<number | null>,
-  player_positions: FormControl<string[] | null>,
-
-  nationality_name: FormControl<string | null>,
-  club_name: FormControl<string | null>,
-  preferred_foot: FormControl<string | null>,
-  pace: FormControl<number | null>,
-  shooting: FormControl<number | null>,
-  passing: FormControl<number | null>,
-  dribbling: FormControl<number | null>,
-  defending: FormControl<number | null>,
-  physic: FormControl<number | null>,
-};
+import { CreateEditPlayerForm } from '@/interfaces/player';
+import { ZardFormImports } from '@/shared/components/form/form.imports';
 
 @Component({
   selector: 'create-player-form',
@@ -46,15 +26,15 @@ type CreatePlayerForm = {
     ZardSelectComponent,
     ZardSelectItemComponent,
     ZardInputDirective,
-    ZardFormImports,
-    ZardCheckboxComponent
+    ZardCheckboxComponent,
+    ZardFormImports
   ],
   templateUrl: './create-player-form.component.html',
   styleUrl: './create-player-form.component.css'
 })
 export class CreatePlayerFormComponent {
   protected isSubmitting = signal(false);
-  protected frm!: FormGroup<CreatePlayerForm>;
+  protected frm!: FormGroup<CreateEditPlayerForm>;
   private frmInitialValue: object;
   private playerService: PlayerService = inject(PlayerService);
   protected readonly positions = [
@@ -134,11 +114,8 @@ export class CreatePlayerFormComponent {
       defending: this.getControl('defending')?.value,
       physic: this.getControl('physic')?.value,
     });
-    // return this.playerService.findPlayer(2);
   }
-  chan() {
-    console.log(this.getControl("preferred_foot")?.value);
-  }
+  
   protected isSelected(position: string): boolean {
     console.log(position);
     return this.getControl("player_positions")?.value.includes(position);

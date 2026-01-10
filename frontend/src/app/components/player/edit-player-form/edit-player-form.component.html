@@ -70,8 +70,8 @@
                 [errorMessage]="getControl('player_positions')?.touched && isFieldInvalid('player_positions') ? 'El campo es obligatorio' : ''">
                 <div class="flex flex-wrap gap-2">
                     @for (position of positions; track position.value) {
-                    <z-checkbox (checkChange)="togglePosition(position.value)" zType="default" [zSize]="'lg'" />
-                    <label z-form-label class="mb-0">{{position.label}}</label>
+                        <z-checkbox (checkChange)="togglePosition(position.value)" d-checkbox [zSize]="'lg'" />
+                        <label z-form-label class="mb-0">{{position.label}}</label>
                     }
                 </div>
             </z-form-control>
@@ -114,8 +114,8 @@
 
             <div class="flex items-start gap-4">
                 <z-form-field>
-                    <label z-form-label>Ritmo</label>
-                    <z-form-control
+                    <label z-form-label zRequired>Ritmo</label>
+                    <z-form-control zreq
                         [errorMessage]="getControl('pace')?.touched && isFieldInvalid('pace') ? getErrorMessage('pace') : ''">
                         <input z-input type="number" placeholder="Ej: 70" formControlName="pace"
                             [zStatus]="getControl('pace')?.invalid && getControl('pace')?.touched ? 'error' : undefined" />
@@ -171,9 +171,8 @@
 
     <div class="flex gap-2 pt-4">
         <button z-button zType="default" class="w-full" type="submit" [zLoading]="isSubmitting()">
-            Crear jugador
+            Actualizar jugador
         </button>
     </div>
 
 </form>
-<z-toast />

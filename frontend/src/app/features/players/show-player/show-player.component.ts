@@ -1,12 +1,12 @@
 import { RadarChartComponent } from '@/components/common/radar-chart/radar-chart.component';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ZardDividerComponent } from '@/shared/components/divider/divider.component';
-import { ZardCardComponent } from '@/shared/components/card/card.component';
 import { PreferredFootPipe } from '@/pipes/preferred-foot.pipe';
 import { ZardBadgeComponent } from '@/shared/components/badge/badge.component';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from '@/services/player/player.service';
 import { Player } from '@/interfaces/player';
+import { PositionsPipe } from '@/pipes/positions.pipe';
 
 @Component({
   selector: 'app-show-player',
@@ -14,9 +14,9 @@ import { Player } from '@/interfaces/player';
   imports: [
     RadarChartComponent,
     ZardDividerComponent,
-    ZardCardComponent,
     ZardBadgeComponent,
-    PreferredFootPipe
+    PreferredFootPipe,
+    PositionsPipe
   ],
   templateUrl: './show-player.component.html',
   styleUrl: './show-player.component.css'
