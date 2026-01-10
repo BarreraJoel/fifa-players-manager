@@ -7,4 +7,8 @@ export default [
         name: "Players",
         description: "Endpoints para la gestión de jugadores"
     },
+    {
+        name: "Metrics",
+        description: "Endpoints de metricas del sistema"
+    },
 ]
