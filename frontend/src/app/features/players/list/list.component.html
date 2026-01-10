@@ -43,9 +43,7 @@
                             <td z-table-cell>{{player.player_positions|positions}}</td>
                             <td z-table-cell>{{player.preferred_foot|preferredFoot}}</td>
                             <td z-table-cell>{{player.overall}}</td>
-                            <z-button zType="link" (click)="redirect(`/players/${player.id}/edit`)">
-                                Editar
-                            </z-button>
+                            <edit-button [playerId]="player.id"/>
                         </tr>
                     }
                 }

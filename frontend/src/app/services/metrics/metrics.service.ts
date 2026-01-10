@@ -23,12 +23,6 @@ export class MetricsService {
           this.metrics?.set(response.body.data.metrics);
       },
       errorResponse => {
-        this.metrics?.set({
-          players_count: 165000,
-          top_overall: 95,
-          overall_average: 74,
-          high_potential: 89
-        });
         return null;
       }
     );

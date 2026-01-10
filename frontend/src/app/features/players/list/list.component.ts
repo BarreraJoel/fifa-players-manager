@@ -8,6 +8,7 @@ import { CsvService } from '@/services/csv.service';
 import { PositionsPipe } from '@/pipes/positions.pipe';
 import { PreferredFootPipe } from '@/pipes/preferred-foot.pipe';
 import { BackButtonComponent } from "@/components/common/back-button/back-button.component";
+import { EditButtonComponent } from "@/components/player/edit-button/edit-button.component";
 
 @Component({
   selector: 'app-list',
@@ -19,7 +20,8 @@ import { BackButtonComponent } from "@/components/common/back-button/back-button
     ZardPaginationNextComponent,
     PositionsPipe,
     PreferredFootPipe,
-    BackButtonComponent
+    BackButtonComponent,
+    EditButtonComponent
 ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'

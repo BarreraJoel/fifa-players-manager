@@ -64,6 +64,9 @@
                         <p class="font-medium">{{ player()!.potential }}</p>
                     </div>
                 </div>
+                <div>
+                    <edit-button [playerId]="player()!.id" />
+                </div>
             </div>
         </div>
         <div class="hidden md:flex items-stretch py-6">

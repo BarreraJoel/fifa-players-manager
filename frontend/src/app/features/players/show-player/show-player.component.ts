@@ -8,6 +8,7 @@ import { PlayerService } from '@/services/player/player.service';
 import { Player } from '@/interfaces/player';
 import { PositionsPipe } from '@/pipes/positions.pipe';
 import { BackButtonComponent } from "@/components/common/back-button/back-button.component";
+import { EditButtonComponent } from "@/components/player/edit-button/edit-button.component";
 
 @Component({
   selector: 'app-show-player',
@@ -18,7 +19,8 @@ import { BackButtonComponent } from "@/components/common/back-button/back-button
     ZardBadgeComponent,
     PreferredFootPipe,
     PositionsPipe,
-    BackButtonComponent
+    BackButtonComponent,
+    EditButtonComponent
 ],
   templateUrl: './show-player.component.html',
   styleUrl: './show-player.component.css'
