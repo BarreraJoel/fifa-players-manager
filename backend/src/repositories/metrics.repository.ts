@@ -1,5 +1,5 @@
 import { col, fn } from "sequelize";
-import { BestPlayers, IMetricRepository, Metrics } from "../interfaces/metric.interface";
+import { IMetricRepository, Metrics } from "../interfaces/metric.interface";
 import Player from "../models/player";
 
 export class MetricRepository implements IMetricRepository {
@@ -23,14 +23,12 @@ export class MetricRepository implements IMetricRepository {
         };
     }
 
-    public async getBestPlayers(): Promise<BestPlayers> {
+    public async getBestPlayers(): Promise<Player[]> {
         const bestPlayers = await Player.findAll({
             attributes: Player.attributes,
             order: [['overall', 'DESC']],
             limit: 4,
         });
-        return {
-            best_players: bestPlayers,
-        };
+        return bestPlayers;
     }
 }
