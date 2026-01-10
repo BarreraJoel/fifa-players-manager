@@ -32,3 +32,33 @@ export interface GetPlayersPaginateResponse extends ApiResponse<PlayersPaginate>
 export interface GetPlayerByIdResponse extends ApiResponse<{
   player: Player
 }> { }
+
+
+export interface LoginDto {
+  email: string;
+  password: string;
+}
+
+export interface CreatePlayerRequest {
+  fifa_version: string,
+  fifa_update: string,
+  long_name: string,
+  player_face_url: string,
+  age: number,
+  overall: number,
+  potential: number,
+  player_positions: string,
+  nationality_name?: string,
+  club_name?: string,
+  preferred_foot?: string,
+  pace?: number,
+  shooting?: number,
+  passing?: number,
+  dribbling?: number,
+  defending?: number,
+  physic?: number,
+}
+
+export interface CreatePlayerResponse extends ApiResponse<{
+  player: Player
+}> { }

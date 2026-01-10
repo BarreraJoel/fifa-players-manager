@@ -1,5 +1,5 @@
 import { API_CONFIG } from '@/config/api.config';
-import { GetPlayerByIdResponse, GetPlayersPaginateResponse } from '@/interfaces/player';
+import { CreatePlayerRequest, CreatePlayerResponse, GetPlayerByIdResponse, GetPlayersPaginateResponse } from '@/interfaces/player';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -38,4 +38,12 @@ export class PlayerApiService {
       playerId.toString()
     )}`;
   }
+
+  public create(data: CreatePlayerRequest): Observable<HttpResponse<CreatePlayerResponse>> {
+    return this.httpClient.post<CreatePlayerResponse>(
+      `${API_CONFIG.baseURL}${API_CONFIG.endpoints.players.createPlayer}`,
+      data, { observe: "response" }
+    );
+  }
+  
 }
