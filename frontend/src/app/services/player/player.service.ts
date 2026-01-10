@@ -91,7 +91,7 @@ export class PlayerService {
             physic: 77
           },
           {
-            id: 15,
+            id: 17,
             fifa_version: "19",
             fifa_update: "5",
             long_name: "Santos Borré",

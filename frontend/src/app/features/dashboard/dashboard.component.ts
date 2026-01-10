@@ -5,6 +5,8 @@ import { ZardButtonComponent } from "@/shared/components/button/button.component
 import { ZardIconComponent } from "@/shared/components/icon/icon.component";
 import { BarChartComponent } from '@/components/common/bar-chart/bar-chart.component';
 import { PieChartComponent } from "@/components/common/pie-chart/pie-chart.component";
+import { MetricsService } from '@/services/metrics/metrics.service';
+import { ZardSkeletonComponent } from "@/shared/components/skeleton/skeleton.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,41 +15,33 @@ import { PieChartComponent } from "@/components/common/pie-chart/pie-chart.compo
     ZardButtonComponent,
     ZardIconComponent,
     BarChartComponent,
-    PieChartComponent
-  ],
+    PieChartComponent,
+    ZardSkeletonComponent
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
 
   protected playerService: PlayerService = inject(PlayerService);
+  protected metricsService: MetricsService = inject(MetricsService);
   protected playersByPositionData = {
     labels: [
       "POR",
-      "CAI",
-      "LI",
-      "DFC",
-      "LD",
-      "CAD",
-      "MCD",
-      "MC",
-      "MI",
-      "MCO",
-      "MD",
-      "EI",
-      "ED",
-      "SD",
-      "DC",
+      "CAI", "LI", "DFC", "LD", "CAD",
+      "MCD","MC",
+      "MI", "MCO", "MD",
+      "EI", "ED",
+      "SD", "DC"
     ],
-    data: [8, 32, 45, 21,0,5,21,10,0,20,23]
+    data: [8, 32, 45, 21, 0, 5, 21, 10, 0, 20, 23]
   };
 
   constructor() { }
 
   ngOnInit() {
     this.playerService.loadPlayers();
+    this.metricsService.loadMetrics();
   }
-
-
 
 }

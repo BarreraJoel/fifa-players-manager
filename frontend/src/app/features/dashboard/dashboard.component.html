@@ -3,22 +3,42 @@
     <section class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <z-card class="p-4">
             <p class="text-sm text-muted-foreground">Jugadores</p>
-            <p class="text-2xl font-semibold">165000</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.players_count}}</p>
+            }
         </z-card>
 
         <z-card class="p-4">
             <p class="text-sm text-muted-foreground">Promedio General</p>
-            <p class="text-2xl font-semibold">83</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.overall_average}}</p>
+            }
         </z-card>
 
         <z-card class="p-4">
             <p class="text-sm text-muted-foreground">Mejor general</p>
-            <p class="text-2xl font-semibold">87</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.top_overall}}</p>
+            }
         </z-card>
 
         <z-card class="p-4">
             <p class="text-sm text-muted-foreground">Alto potencial</p>
-            <p class="text-2xl font-semibold">5</p>
+            @if(!metricsService.metrics$()) {
+                <z-skeleton class="h-4 w-62.5"></z-skeleton>
+            }
+            @else {
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.high_potential}}</p>
+            }
         </z-card>
     </section>
 
