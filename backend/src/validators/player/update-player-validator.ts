@@ -79,25 +79,25 @@ export const updatePlayerValidator = [
     .isString().withMessage(buildValidationMessage("player_positions", "string"))
   ,
   body("nationality_name")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("nationality_name", "empty"))
     .bail()
     .isString().withMessage(buildValidationMessage("nationality_name", "string"))
   ,
   body("club_name")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("club_name", "empty"))
     .bail()
     .isString().withMessage(buildValidationMessage("club_name", "string"))
   ,
   body("preferred_foot")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("preferred_foot", "empty"))
     .bail()
     .isIn(['Left', 'Right']).withMessage(buildValidationMessage("preferred_foot", "invalid"))
   ,
   body("pace")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("pace", "empty"))
     .bail()
     .isInt().withMessage(buildValidationMessage("pace", "numeric"))
@@ -107,7 +107,7 @@ export const updatePlayerValidator = [
     .isInt({ max: 99 }).withMessage(buildValidationMessage("pace", "max_numeric", { max: 99 }))
   ,
   body("shooting")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("shooting", "empty"))
     .bail()
     .isInt().withMessage(buildValidationMessage("shooting", "numeric"))
@@ -117,7 +117,7 @@ export const updatePlayerValidator = [
     .isInt({ max: 99 }).withMessage(buildValidationMessage("shooting", "max_numeric", { max: 99 }))
   ,
   body("passing")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("passing", "empty"))
     .bail()
     .isInt().withMessage(buildValidationMessage("passing", "numeric"))
@@ -127,7 +127,7 @@ export const updatePlayerValidator = [
     .isInt({ max: 99 }).withMessage(buildValidationMessage("passing", "max_numeric", { max: 99 }))
   ,
   body("dribbling")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("dribbling", "empty"))
     .bail()
     .isInt().withMessage(buildValidationMessage("dribbling", "numeric"))
@@ -137,7 +137,7 @@ export const updatePlayerValidator = [
     .isInt({ max: 99 }).withMessage(buildValidationMessage("dribbling", "max_numeric", { max: 99 }))
   ,
   body("defending")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("defending", "empty"))
     .bail()
     .isInt().withMessage(buildValidationMessage("defending", "numeric"))
@@ -147,7 +147,7 @@ export const updatePlayerValidator = [
     .isInt({ max: 99 }).withMessage(buildValidationMessage("defending", "max_numeric", { max: 99 }))
   ,
   body("physic")
-    .optional()
+    .optional({ nullable: true })
     .notEmpty().withMessage(buildValidationMessage("physic", "empty"))
     .bail()
     .isInt().withMessage(buildValidationMessage("physic", "numeric"))
