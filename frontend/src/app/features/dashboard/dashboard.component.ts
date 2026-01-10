@@ -3,10 +3,9 @@ import { ZardCardComponent } from '@/shared/components/card/card.component';
 import { Component, inject } from '@angular/core';
 import { ZardButtonComponent } from "@/shared/components/button/button.component";
 import { ZardIconComponent } from "@/shared/components/icon/icon.component";
-import { BarChartComponent } from '@/components/common/bar-chart/bar-chart.component';
-import { PieChartComponent } from "@/components/common/pie-chart/pie-chart.component";
 import { MetricsService } from '@/services/metrics/metrics.service';
 import { ZardSkeletonComponent } from "@/shared/components/skeleton/skeleton.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +13,8 @@ import { ZardSkeletonComponent } from "@/shared/components/skeleton/skeleton.com
     ZardCardComponent,
     ZardButtonComponent,
     ZardIconComponent,
-    BarChartComponent,
-    PieChartComponent,
     ZardSkeletonComponent
-],
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -29,7 +26,7 @@ export class DashboardComponent {
     labels: [
       "POR",
       "CAI", "LI", "DFC", "LD", "CAD",
-      "MCD","MC",
+      "MCD", "MC",
       "MI", "MCO", "MD",
       "EI", "ED",
       "SD", "DC"
@@ -37,11 +34,24 @@ export class DashboardComponent {
     data: [8, 32, 45, 21, 0, 5, 21, 10, 0, 20, 23]
   };
 
-  constructor() { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.playerService.loadPlayers();
     this.metricsService.loadMetrics();
+    this.metricsService.loadBestPlayers();
   }
+
+  protected redirect(route: string) {
+    this.router.navigateByUrl(route);
+  }
+  protected onImageError(e: Event) {
+    (e.target as HTMLImageElement).src = '/assets/silhouette.png';
+  }
+
+  protected loadImage(playerId: number) {
+    return this.playerService.loadPlayerImage(playerId);
+  }
+
 
 }

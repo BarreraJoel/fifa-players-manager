@@ -114,7 +114,7 @@
 
             <div class="flex items-start gap-4">
                 <z-form-field>
-                    <label z-form-label zRequired>Ritmo</label>
+                    <label z-form-label>Ritmo</label>
                     <z-form-control zreq
                         [errorMessage]="getControl('pace')?.touched && isFieldInvalid('pace') ? getErrorMessage('pace') : ''">
                         <input z-input type="number" placeholder="Ej: 70" formControlName="pace"

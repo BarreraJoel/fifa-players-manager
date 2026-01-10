@@ -17,9 +17,8 @@ export const API_CONFIG = {
             editPlayer: "/players/:id",
         },
         metric: {
-            getMetrics: "/metrics/",
-            getBestPlayers: "/metrics/outstanding-players",
-            getAnalytics: "/metrics/analytics",
+            getMetrics: "/metrics",
+            getBestPlayers: "/metrics/best-players",
             
         },
     },

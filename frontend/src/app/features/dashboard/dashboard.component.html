@@ -17,7 +17,7 @@
                 <z-skeleton class="h-4 w-62.5"></z-skeleton>
             }
             @else {
-                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.overall_average}}</p>
+                <p class="text-2xl font-semibold">{{metricsService.metrics$()?.overall_average?.toFixed(2)}}</p>
             }
         </z-card>
 
@@ -32,7 +32,7 @@
         </z-card>
 
         <z-card class="p-4">
-            <p class="text-sm text-muted-foreground">Alto potencial</p>
+            <p class="text-sm text-muted-foreground">Potencial más alto</p>
             @if(!metricsService.metrics$()) {
                 <z-skeleton class="h-4 w-62.5"></z-skeleton>
             }
@@ -43,13 +43,16 @@
     </section>
 
     <section class="space-y-4">
-        <h2 class="text-lg font-semibold">Jugadores destacados</h2>
+        <h2 class="text-lg font-semibold">Jugadores con mayor puntuación general</h2>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            @for (player of playerService.playersPaginate$().items; track player.id) {
+            @for (player of metricsService.bestPlayers$(); track player.id) {
             <z-card class="overflow-hidden rounded-xl border shadow-sm hover:shadow-md">
                 <div class="h-32 w-full flex items-center justify-center">
-                    <img [src]="player.player_face_url" alt="{{ player.long_name }}" class="h-full object-contain" />
+                    <img 
+                    [src]="loadImage(player.id)" 
+                    (error)="onImageError($event)"
+                    alt="{{ player.long_name }}" class="h-full object-contain" />
                 </div>
 
                 <div class="p-3 space-y-2">
@@ -74,32 +77,12 @@
                         </div>
                     </div>
 
-                    <z-button zType="default" class="w-full h-8 text-xs">
+                    <z-button zType="default" class="w-full h-8 text-xs" (click)="redirect(`/players/${player.id}`)">
                         Ver
                     </z-button>
                 </div>
             </z-card>
             }
-        </div>
-    </section>
-
-    <section class="space-y-4">
-        <h2 class="text-lg font-semibold">Análisis</h2>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <z-card class="p-4">
-                <h3 class="text-sm font-medium mb-2">
-                    Jugadores por posición
-                </h3>
-                <bar-chart [labels]="playersByPositionData.labels" [data]="playersByPositionData.data" />
-            </z-card>
-
-            <z-card class="p-4">
-                <h3 class="text-sm font-medium mb-2">
-                    Promedio general por posición
-                </h3>
-                <pie-chart [labels]="playersByPositionData.labels" [data]="playersByPositionData.data" />
-            </z-card>
         </div>
     </section>
 </div>
