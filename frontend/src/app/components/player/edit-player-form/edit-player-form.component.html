@@ -135,7 +135,7 @@
                     <label z-form-label>Pase</label>
                     <z-form-control
                         [errorMessage]="getControl('pace')?.touched && isFieldInvalid('pace') ? getErrorMessage('pace') : ''">
-                        <input z-input type="number" placeholder="Ej: 78" formControlName="pace"
+                        <input z-input type="number" placeholder="Ej: 78" formControlName="passing"
                             [zStatus]="getControl('pace')?.invalid && getControl('pace')?.touched ? 'error' : undefined" />
                     </z-form-control>
                 </z-form-field>

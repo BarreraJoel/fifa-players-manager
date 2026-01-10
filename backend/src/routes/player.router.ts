@@ -56,7 +56,6 @@ router.put(
   playerExists,
   updatePlayerValidator,
   validateRequestMiddleware,
-  sanitizeBody,
   playerController.update
 );
 

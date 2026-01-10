@@ -33,7 +33,6 @@ import { ZardFormImports } from '@/shared/components/form/form.imports';
 export class EditPlayerFormComponent {
   protected isSubmitting = signal(false);
   protected frm!: FormGroup<CreateEditPlayerForm>;
-  private frmInitialValue: object;
   private playerService: PlayerService = inject(PlayerService);
   protected readonly positions = [
     { value: "GK", label: "POR" },
@@ -64,7 +63,6 @@ export class EditPlayerFormComponent {
     if (playerId)
       this.playerId = parseInt(playerId);
     this.initForm();
-    this.frmInitialValue = this.frm.getRawValue();
   }
 
   ngOnInit() {
@@ -98,7 +96,6 @@ export class EditPlayerFormComponent {
     this.fillFormControl("dribbling", this.player()?.dribbling);
     this.fillFormControl("defending", this.player()?.defending);
     this.fillFormControl("physic", this.player()?.physic);
-    console.log(this.frm.value);
   }
 
   private fillFormControl(control: string, value: any) {
@@ -140,7 +137,7 @@ export class EditPlayerFormComponent {
     const positionsString = this.formatPositions();
 
     return this.playerService.editPlayer(
-      1,
+      this.playerId,
       {
         fifa_version: this.getControl('fifa_version')?.value,
         fifa_update: this.getControl('fifa_update')?.value,
@@ -166,21 +163,18 @@ export class EditPlayerFormComponent {
   }
 
   protected isSelected(position: string): boolean {
-    console.log(position);
     return this.getControl("player_positions")?.value.includes(position);
   }
 
   protected togglePosition(position: string) {
     const control = this.getControl("player_positions");
     const current = control?.value;
-    console.log(this.getControl("player_positions")?.value);
 
     if (current.includes(position)) {
       control?.setValue(current.filter((p: any) => p !== position));
     } else {
       control?.setValue([...current, position]);
     }
-    console.log(this.getControl("player_positions")?.value);
     control?.markAsTouched();
   }
 
