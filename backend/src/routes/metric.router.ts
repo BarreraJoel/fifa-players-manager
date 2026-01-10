@@ -11,9 +11,7 @@ const metricController = new MetricController(metricService);
 
 router.use(checkJwtMiddleware);
 
-router.get(
-  '/',
-  metricController.getMetrics
-);
+router.get('/', metricController.getMetrics);
+router.get('/best-players', metricController.getBestPlayers);
 
 export default router;

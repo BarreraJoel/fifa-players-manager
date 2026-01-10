@@ -26,4 +26,23 @@ export class MetricController {
     }
   };
 
+  public getBestPlayers = async (request: Request, response: Response) => {
+    try {
+      const bestPlayers = await this.metricService.getBestPlayers();
+
+      return response.status(200).json({
+        success: true,
+        message: "Mejores jugadores obtenidos!",
+        data: {
+          best_players: bestPlayers
+        }
+      });
+    } catch (error: any) {
+      return response.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
 }

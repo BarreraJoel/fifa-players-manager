@@ -8,4 +8,8 @@ export class MetricService {
     return this.metricRepository.getMetrics();
   }
 
+  public async getBestPlayers() {
+    return this.metricRepository.getBestPlayers();
+  }
+
 }
