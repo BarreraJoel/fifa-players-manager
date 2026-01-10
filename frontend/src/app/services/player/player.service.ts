@@ -1,4 +1,4 @@
-import { Player, PlayersPaginate } from '@/interfaces/player';
+import { CreatePlayerRequest, Player } from '@/interfaces/player';
 import { Injectable, signal } from '@angular/core';
 import { PlayerApiService } from '../api/player/player-api.service';
 import { Paginate } from '@/interfaces/paginate';
@@ -69,6 +69,10 @@ export class PlayerService {
 
   public loadPlayerImage(id: number) {
     return this.api.getPlayerImage(id);
+  }
+
+  public createPlayer(data: CreatePlayerRequest) {
+    return this.api.create(data);
   }
 
 }
