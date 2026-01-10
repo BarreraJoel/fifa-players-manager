@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { CsvService } from '@/services/csv.service';
 import { PositionsPipe } from '@/pipes/positions.pipe';
 import { PreferredFootPipe } from '@/pipes/preferred-foot.pipe';
+import { BackButtonComponent } from "@/components/common/back-button/back-button.component";
 
 @Component({
   selector: 'app-list',
@@ -17,8 +18,9 @@ import { PreferredFootPipe } from '@/pipes/preferred-foot.pipe';
     ZardPaginationPreviousComponent,
     ZardPaginationNextComponent,
     PositionsPipe,
-    PreferredFootPipe
-  ],
+    PreferredFootPipe,
+    BackButtonComponent
+],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
