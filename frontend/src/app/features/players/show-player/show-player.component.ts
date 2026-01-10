@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from '@/services/player/player.service';
 import { Player } from '@/interfaces/player';
 import { PositionsPipe } from '@/pipes/positions.pipe';
+import { BackButtonComponent } from "@/components/common/back-button/back-button.component";
 
 @Component({
   selector: 'app-show-player',
@@ -16,8 +17,9 @@ import { PositionsPipe } from '@/pipes/positions.pipe';
     ZardDividerComponent,
     ZardBadgeComponent,
     PreferredFootPipe,
-    PositionsPipe
-  ],
+    PositionsPipe,
+    BackButtonComponent
+],
   templateUrl: './show-player.component.html',
   styleUrl: './show-player.component.css'
 })
