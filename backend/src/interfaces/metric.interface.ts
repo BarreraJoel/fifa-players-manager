@@ -1,0 +1,10 @@
+export interface Metrics {
+    players_count: number,
+    overall_average: number,
+    top_overall: number,
+    high_potential: number
+}
+
+export interface IMetricRepository {
+    getMetrics(): Promise<Metrics>;
+}
