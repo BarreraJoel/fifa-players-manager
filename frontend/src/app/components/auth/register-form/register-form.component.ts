@@ -66,13 +66,13 @@ export class RegisterFormComponent {
     this.register().subscribe(
       res => {
         toast.success('Usuario creado correctamente', {
-          description: 'Redireccionando al home ...',
+          description: 'Redireccionando al inicio ...',
           duration: 3000,
           position: "top-right"
         });
 
         setTimeout(() => {
-          this.redirect('/dashboard');
+          this.redirect('/');
           this.reset()
         }, 3000);
 
