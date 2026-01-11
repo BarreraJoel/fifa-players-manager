@@ -8,3 +8,12 @@ export interface Paginate<T> {
         prev_cursor: string | null;
     };
 }
+
+export interface QueryParamsPlayers {
+    limit?: number,
+    after?: string,
+    before?: string,
+    long_name?: string,
+    nationality_name?: string,
+    club_name?: string,
+}

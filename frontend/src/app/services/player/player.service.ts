@@ -1,7 +1,7 @@
 import { CreatePlayerRequest, EditPlayerRequest, Player } from '@/interfaces/player';
 import { Injectable, signal } from '@angular/core';
 import { PlayerApiService } from '../api/player/player-api.service';
-import { Paginate } from '@/interfaces/paginate';
+import { Paginate, QueryParamsPlayers } from '@/interfaces/paginate';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,8 @@ export class PlayerService {
 
   constructor(private api: PlayerApiService) { }
 
-  public loadPlayers(queryParams?: { after?: string, before?: string }) {
-    this.api.getPlayersPaginate(10, queryParams).subscribe(
+  public loadPlayers(queryParams: QueryParamsPlayers) {
+    this.api.getPlayersPaginate(queryParams).subscribe(
       response => {
         if (response.body?.data)
           this.players.set(response.body.data.players);

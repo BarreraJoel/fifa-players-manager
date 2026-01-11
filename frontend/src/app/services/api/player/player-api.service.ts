@@ -1,4 +1,5 @@
 import { API_CONFIG } from '@/config/api.config';
+import { QueryParamsPlayers } from '@/interfaces/paginate';
 import { CreatePlayerRequest, CreatePlayerResponse, EditPlayerRequest, EditPlayerResponse, GetPlayerByIdResponse, GetPlayersPaginateResponse } from '@/interfaces/player';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,12 +12,13 @@ export class PlayerApiService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getPlayersPaginate(limit: number, navParams?: { after?: string, before?: string }): Observable<HttpResponse<GetPlayersPaginateResponse>> {
-    let queryParams = `?limit=${limit}`;
-    if (navParams) {
-      queryParams += navParams.after ? `&after=${navParams.after}` : '';
-      queryParams += navParams.before ? `&before=${navParams.before}` : '';
-    }
+  public getPlayersPaginate(query: QueryParamsPlayers): Observable<HttpResponse<GetPlayersPaginateResponse>> {
+    let queryParams = `?limit=${query.limit}`;
+    queryParams += query.after ? `&after=${query.after}` : '';
+    queryParams += query.before ? `&before=${query.before}` : '';
+    queryParams += query.long_name ? `&long_name=${query.long_name}` : '';
+    queryParams += query.nationality_name ? `&nationality_name=${query.nationality_name}` : '';
+    queryParams += query.club_name ? `&club_name=${query.club_name}` : '';
 
     return this.httpClient.get<GetPlayersPaginateResponse>(
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.players.getPlayers}${queryParams}`, { observe: "response", withCredentials: true }

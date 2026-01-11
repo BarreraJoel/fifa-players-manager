@@ -3,6 +3,8 @@ import { PlayerService } from "../services/player.service";
 import { PlayerResource } from "../resources/user/player-resource";
 import { CreatePlayerDto } from "../dto/player/create-player.dto";
 import { UpdatePlayerDto } from "../dto/player/update-player.dto";
+import { WhereOptions } from "sequelize";
+import { Op } from "sequelize";
 
 export class PlayerController {
 
@@ -12,12 +14,41 @@ export class PlayerController {
 
   public getPlayers = async (request: Request, response: Response) => {
     try {
-      const { limit, after, before } = request.query;
+      const {
+        limit,
+        after,
+        before,
+        long_name,
+        nationality_name,
+        club_name
+      } = request.query;
       const parsedLimit = limit ? parseInt(limit as string, 10) : undefined;
+      const where: WhereOptions = {};
+
+      if (long_name) {
+        where.long_name = {
+          [Op.like]: `%${long_name}%`,
+        };
+      }
+
+      if (nationality_name) {
+        where.nationality_name = {
+          [Op.like]: `%${nationality_name}%`,
+        };
+      }
+
+      if (club_name) {
+        where.club_name = {
+          [Op.like]: `%${club_name}%`,
+        };
+      
+      }
       const players = await this.playerService.getPlayers(
         parsedLimit,
         after as string ?? undefined,
         before as string ?? undefined,
+        undefined,
+        where
       );
 
       return response.status(200).json({

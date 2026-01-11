@@ -24,7 +24,7 @@ export default {
     },
     "/api/metrics/best-players": {
         get: {
-            summary: "Obteneres los jugadores mejor puntuados",
+            summary: "Obtener los jugadores mejor puntuados",
             description: "",
             tags: ["Metrics"],
             security: [

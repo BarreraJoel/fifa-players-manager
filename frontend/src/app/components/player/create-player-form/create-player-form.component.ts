@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ZardFormFieldComponent, ZardFormControlComponent } from "@/shared/components/form/form.component";
-import { FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PlayerService } from '@/services/player/player.service';
 import { Router } from '@angular/router';
 import { Validator } from '@/utils/validators';

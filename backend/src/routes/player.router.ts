@@ -10,6 +10,7 @@ import { playerExists } from "../middlewares/player-exist.middleware";
 import { createPlayerValidator } from "../validators/player/create-player-validator";
 import { sanitizeBody } from "../middlewares/sanitize.middleware";
 import { updatePlayerValidator } from "../validators/player/update-player-validator";
+import queryFilterPlayerMiddleware from "../validators/params/query-filter-player.middleware";
 
 const router = Router();
 const playerRepository = new PlayerRepository;
@@ -21,6 +22,7 @@ router.use(checkJwtMiddleware);
 router.get(
   '/',
   queryParamPaginateValidator,
+  queryFilterPlayerMiddleware,
   validateRequestMiddleware,
   playerController.getPlayers
 );
@@ -56,7 +58,6 @@ router.put(
   playerExists,
   updatePlayerValidator,
   validateRequestMiddleware,
-  sanitizeBody,
   playerController.update
 );
 
