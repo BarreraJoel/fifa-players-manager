@@ -1,0 +1,100 @@
+<div class="relative px-4 py-6 flex items-center justify-between">
+
+  <div class="absolute left-4 top-1/2 -translate-y-1/2">
+    <back-button />
+  </div>
+
+  <div class="flex items-end gap-3 ml-auto">
+    
+    <button type="button" [disabled]="filterText == ''" z-button zType="link" (click)="deleteFilters()">
+        <span>Limpiar filtros</span>
+    </button>
+
+
+    <z-form-field class="w-44">
+      <z-form-control>
+        <z-form-label>Filtros</z-form-label>
+        <z-select [(ngModel)]="filterOption" placeholder="Filtrar por...">
+          <z-select-item zValue="long_name">Nombre</z-select-item>
+          <z-select-item zValue="nationality_name">Nacionalidad</z-select-item>
+          <z-select-item zValue="club_name">Club</z-select-item>
+        </z-select>
+      </z-form-control>
+    </z-form-field>
+
+    <z-form-field class="w-64">
+      <z-form-control>
+        <input z-input type="text" placeholder="Buscar..." [(ngModel)]="filterText" />
+      </z-form-control>
+    </z-form-field>
+
+    <button z-button zType="default" class="h-10 px-4" (click)="filter()">
+      <z-icon zType="search" />
+    </button>
+    
+  </div>
+
+</div>
+
+
+<div class="w-4/5 m-auto">
+    <div class="overflow-hidden rounded-md border mt-5">
+        <table z-table id="players-table">
+            <thead z-table-header>
+                <tr z-table-row>
+                    <th z-table-head>Jugador</th>
+                    <th z-table-head>Nombre</th>
+                    <th z-table-head>Version</th>
+                    <th z-table-head>Actualización</th>
+                    <th z-table-head>Nacionalidad</th>
+                    <th z-table-head>Club</th>
+                    <th z-table-head>Edad</th>
+                    <th z-table-head>Posiciones</th>
+                    <th z-table-head>Pierna hábil</th>
+                    <th z-table-head>General</th>
+                    <th z-table-head>Acción</th>
+                </tr>
+            </thead>
+            <tbody z-table-body>
+                @if(playerService.playersPaginate$().items.length > 0) {
+                    @for (player of playerService.playersPaginate$().items; track player.id) {
+                        <tr z-table-row>
+                            <td z-table-cell>
+                                <img [src]="loadImage(player.id)" class="h-16" (error)="onImageError($event)"
+                                    alt="foto del jugador">
+                            </td>
+                            <td z-table-cell class="cursor-pointer hover:underline" (click)="redirect(`/players/${player.id}`)">
+                                {{player.long_name}}
+                            </td>
+                            <td z-table-cell>{{player.fifa_version}}</td>
+                            <td z-table-cell>{{player.fifa_update}}</td>
+                            <td z-table-cell>{{player.nationality_name}}</td>
+                            <td z-table-cell>{{player.club_name}}</td>
+                            <td z-table-cell>{{player.age}}</td>
+                            <td z-table-cell>{{player.player_positions|positions}}</td>
+                            <td z-table-cell>{{player.preferred_foot|preferredFoot}}</td>
+                            <td z-table-cell>{{player.overall}}</td>
+                            <edit-button [playerId]="player.id" />
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <z-pagination class="flex m-auto justify-center items-center"
+            [zDisabled]="playerService.playersPaginate$().items.length > 0"
+            [zTotal]="playerService.playersPaginate$().total_count/rowsPerPage" [(zPageIndex)]="currentPage"
+            [zContent]="content" />
+        <ng-template #content>
+            <z-pagination-previous (click)="goToPrevious($event)" [zDisabled]="currentPage() === 1" />
+            <z-pagination-next (click)="goToNext($event)"
+                [zDisabled]="currentPage() === playerService.playersPaginate$().total_count" />
+        </ng-template>
+    </div>
+
+    <div class="flex flex-row-reverse mr-5 mt-5">
+        <button z-button zType="default" [zLoading]="isExporting()" (click)="exportToCsv()" type="button">
+            Exportar a CSV
+        </button>
+    </div>
+
+</div>

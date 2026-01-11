@@ -1,0 +1,86 @@
+<div class="relative px-4 py-10">
+    <div class="absolute top-6 left-6">
+        <back-button />
+    </div>
+</div>
+<div class="m-auto text-slate-950 grid grid-cols-1 md:grid-cols-[0.8fr_auto_1.2fr] gap-8 items-stretch">
+    @if(player()) {
+        <div class="self-start">
+            <div class="flex items-center gap-4 p-5 pb-2">
+                <img 
+                [src]="loadImage(player()!.id)" 
+                (error)="onImageError($event)"
+                class="h-40" alt="jugador">
+                <div>
+                    <h3 class="text-lg font-semibold leading-tight">
+                        {{ player()!.long_name }}
+                    </h3>
+                    <p class="text-sm text-muted-foreground">
+                        {{ player()!.club_name }} · {{ player()!.nationality_name }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-3 px-5 pb-5">
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                    <div class="space-y-1 flex flex-col">
+                        <span class="text-xs tracking-wide text-muted-foreground">
+                            Posiciones
+                        </span>
+                        <z-badge zType="secondary">
+                            {{ player()!.player_positions|positions}}
+                        </z-badge>
+                    </div>
+
+                    <div class="space-y-1 flex flex-col">
+                        <span class="text-xs tracking-wide text-muted-foreground">
+                            Pierna hábil
+                        </span>
+                        <z-badge zType="secondary">
+                            {{ player()!.preferred_foot | preferredFoot }}
+                        </z-badge>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                        <span class="text-muted-foreground">Edad</span>
+                        <p class="font-medium">{{ player()!.age }}</p>
+                    </div>
+
+                    <div>
+                        <span class="text-muted-foreground">Versión</span>
+                        <p class="font-medium">
+                            FIFA {{ player()!.fifa_version }} · Parche {{ player()!.fifa_update }}
+                        </p>
+                    </div>
+                    <div>
+                        <span class="text-muted-foreground">General</span>
+                        <p class="font-medium">{{ player()!.overall }}</p>
+                    </div>
+
+                    <div>
+                        <span class="text-muted-foreground">Potencial</span>
+                        <p class="font-medium">{{ player()!.potential }}</p>
+                    </div>
+                </div>
+                <div>
+                    <edit-button [playerId]="player()!.id" />
+                </div>
+            </div>
+        </div>
+        <div class="hidden md:flex items-stretch py-6">
+            <z-divider zOrientation="vertical" />
+        </div>
+        <div class="p-6 flex flex-col justify-center items-center">
+            <h6 class="mb-4 text-sm font-semibold tracking-wide self-start">
+                Habilidades
+            </h6>
+
+            <div class="w-105 h-105">
+                <radar-chart [labels]="labels" [data]="getStats()" />
+            </div>
+        </div>
+    }
+
+</div>

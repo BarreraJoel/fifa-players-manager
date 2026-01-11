@@ -1,0 +1,31 @@
+<div class="flex w-full justify-center">
+    <z-card class="w-full max-w-md" zTitle="Iniciar sesión" zDescription="Ingrese sus credenciales"
+        zAction="Registrar" (zActionClick)="redirect('/auth/register')">
+        <form class="max-w-sm space-y-6" [formGroup]="frm" (ngSubmit)="onSubmit()">
+            <z-form-field>
+                <label z-form-label zRequired [for]="idEmail">Email</label>
+                <z-form-control [errorMessage]="emailControl.touched && isFieldInvalid('email') ? getErrorMessage('email') : ''">
+                    <input z-input type="email" [id]="idEmail" placeholder="Ej: example@example.com"
+                        formControlName="email"
+                        [zStatus]="emailControl.invalid && emailControl.touched ? 'error' : undefined" />
+                </z-form-control>
+            </z-form-field>
+
+            <z-form-field>
+                <label z-form-label zRequired [for]="idPassword">Contraseña</label>
+                <z-form-control [errorMessage]="password.touched && isFieldInvalid('password') ? getErrorMessage('password') : ''">
+                    <input z-input type="password" [id]="idPassword" placeholder="Ej: password123"
+                        formControlName="password"
+                        [zStatus]="password.invalid && password.touched ? 'error' : undefined" />
+                </z-form-control>
+            </z-form-field>
+
+            <div card-footer class="flex w-full flex-col gap-2">
+                <button z-button zType="default" [zLoading]="isSubmitting()" type="submit">Iniciar sesión</button>
+            </div>
+
+            <z-toaster />
+
+        </form>
+    </z-card>
+</div>

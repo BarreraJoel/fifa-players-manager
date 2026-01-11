@@ -1,0 +1,43 @@
+.split-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.split-page__image {
+    position: relative;
+    overflow: hidden;
+}
+
+.split-page__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.split-page__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.card-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+
+@media (max-width: 768px) {
+    .split-page {
+        grid-template-columns: 1fr;
+    }
+
+    .split-page__image {
+        display: none;
+    }
+
+    .card-container {
+        max-width: 100%;
+    }
+}
