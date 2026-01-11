@@ -9,6 +9,15 @@ import { PositionsPipe } from '@/pipes/positions.pipe';
 import { PreferredFootPipe } from '@/pipes/preferred-foot.pipe';
 import { BackButtonComponent } from "@/components/common/back-button/back-button.component";
 import { EditButtonComponent } from "@/components/player/edit-button/edit-button.component";
+import { FormsModule } from '@angular/forms';
+import { ZardFormControlComponent, ZardFormFieldComponent, ZardFormLabelComponent } from "@/shared/components/form/form.component";
+import { ZardIconComponent } from "@/shared/components/icon/icon.component";
+import { ZardSelectComponent } from '@/shared/components/select/select.component';
+import { ZardSelectItemComponent } from "@/shared/components/select/select-item.component";
+import { ZardInputDirective } from '@/shared/components/input/input.directive';
+import { QueryParamsPlayers } from '@/interfaces/paginate';
+
+type FilterOptions = 'long_name' | 'nationality_name' | 'club_name';
 
 @Component({
   selector: 'app-list',
@@ -21,7 +30,15 @@ import { EditButtonComponent } from "@/components/player/edit-button/edit-button
     PositionsPipe,
     PreferredFootPipe,
     BackButtonComponent,
-    EditButtonComponent
+    EditButtonComponent,
+    FormsModule,
+    ZardIconComponent,
+    ZardFormControlComponent,
+    ZardFormFieldComponent,
+    ZardSelectComponent,
+    ZardSelectItemComponent,
+    ZardInputDirective,
+    ZardFormLabelComponent
 ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
@@ -31,7 +48,9 @@ export class ListComponent implements OnInit {
   protected isExporting = signal(false);
   protected playerService: PlayerService = inject(PlayerService);
   protected csvService: CsvService = inject(CsvService);
-  protected rowsPerPage = 100;
+  protected rowsPerPage = 10;
+  protected filterText = "";
+  protected filterOption: FilterOptions = "long_name";
 
   constructor(private router: Router) { }
 
@@ -43,9 +62,7 @@ export class ListComponent implements OnInit {
     const prevCursor = this.playerService.playersPaginate$().paginate_info.prev_cursor;
     const hasPrevious = this.playerService.playersPaginate$().paginate_info.has_previous;
     if (hasPrevious) {
-      this.playerService.loadPlayers({
-        before: prevCursor as string
-      });
+      this.filter({ before: prevCursor as string });
     }
     this.currentPage.set(this.currentPage() - 1);
   }
@@ -54,9 +71,7 @@ export class ListComponent implements OnInit {
     const nextCursor = this.playerService.playersPaginate$().paginate_info.next_cursor;
     const hasNext = this.playerService.playersPaginate$().paginate_info.has_next;
     if (hasNext) {
-      this.playerService.loadPlayers({
-        after: nextCursor as string
-      });
+      this.filter({ after: nextCursor as string });
     }
     this.currentPage.set(this.currentPage() + 1);
   }
@@ -70,7 +85,34 @@ export class ListComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.playerService.loadPlayers();
+    this.filter();
+  }
+
+  protected filter(queryPaginate?: { after?: string, before?: string }) {
+    let fullQuery: QueryParamsPlayers = {
+      limit: this.rowsPerPage
+    };
+
+    if (queryPaginate?.after) {
+      fullQuery.after = queryPaginate.after;
+    }
+    if (queryPaginate?.before) {
+      fullQuery.before = queryPaginate.before;
+    }
+
+    if (this.filterText != "") {
+      if (this.filterOption == "long_name") {
+        fullQuery.long_name = this.filterText;
+      }
+      else if (this.filterOption == "club_name") {
+        fullQuery.club_name = this.filterText;
+      }
+      else {
+        fullQuery.nationality_name = this.filterText;
+      }
+    }
+
+    this.playerService.loadPlayers(fullQuery);
   }
 
   protected redirect(route: string) {
@@ -83,5 +125,14 @@ export class ListComponent implements OnInit {
       'players.csv'
     );
   }
+
+  protected deleteFilters() {
+    this.playerService.loadPlayers({
+      limit: this.rowsPerPage
+    });
+    this.filterText = "";
+  }
+
+
 
 }

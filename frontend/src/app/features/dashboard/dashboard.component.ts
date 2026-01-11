@@ -37,7 +37,6 @@ export class DashboardComponent {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.playerService.loadPlayers();
     this.metricsService.loadMetrics();
     this.metricsService.loadBestPlayers();
   }

@@ -1,7 +1,7 @@
 export default {
     "/api/players": {
         get: {
-            summary: "Obtener al usuario logueado",
+            summary: "Obtener jugadores",
             description: "Obtiene la informacion del usuario logueado actualmente",
             tags: ["Players"],
             security: [
@@ -26,7 +26,6 @@ export default {
                     name: "after",
                     schema: {
                         type: "string",
-                        minimum: 1,
                         description: "Cursor para obtener la siguiente página."
                     }
                 },
@@ -35,8 +34,31 @@ export default {
                     name: "before",
                     schema: {
                         type: "string",
-                        minimum: 1,
                         description: "Cursor para obtener la página anterior."
+                    }
+                },
+                {
+                    in: "query",
+                    name: "long_name",
+                    schema: {
+                        type: "string",
+                        description: "Nombre para filtrar."
+                    }
+                },
+                {
+                    in: "query",
+                    name: "nationality_name",
+                    schema: {
+                        type: "string",
+                        description: "Nacionalidad para filtrar."
+                    }
+                },
+                {
+                    in: "query",
+                    name: "club_name",
+                    schema: {
+                        type: "string",
+                        description: "Club para filtrar."
                     }
                 },
             ],
