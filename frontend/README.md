@@ -1,48 +1,37 @@
-# Frontend – Angular
+## 🎨 Frontend
 
-## 📦 Requisitos
-
-* Node.js **v20+**
-* npm **v9+**
-* Angular CLI **v19**
-
-> Opcional: Docker y Docker Compose si se ejecuta en contenedores.
+Este README describe cómo ejecutar y configurar el frontend de forma **aislada**.
+Para levantar todo el sistema completo, consultar el README principal.
 
 ---
 
-## 🚀 Ejecutar en entorno local
+### 🔧 Requisitos previos
 
-1. Instalar dependencias:
+#### Para ejecución local
+- Node.js v18 o superior
+- npm
 
-```bash
-npm install
-```
-
-2. Levantar la aplicación en modo desarrollo:
-
-```bash
-npm start
-```
-> Este comando ejecuta `ng serve` y utiliza automáticamente `environment.development.ts`
-
-3. Abrir en el navegador:
-```
-http://localhost:4200
-```
+#### Para ejecución con Docker
+- Docker
 
 ---
 
-## 🧪 Ejecutar con Docker (opcional)
+### 🐳 Ejecutar con Docker (recomendado)
 
-Si el proyecto se ejecuta junto a otros servicios (backend, DB):
+El frontend se ejecuta automáticamente como parte del entorno Docker del proyecto.
 
+Desde la raíz del repositorio:
+#### Primer arranque (con build de imágenes)
 ```bash
 docker compose up --build -d
 ```
-El contenedor del frontend ejecuta Angular con la configuración docker,
-por lo que se utiliza el archivo: `environment.docker.ts`
+#### Arranques posteriores
+```bash
+docker compose up -d
+```
+> La opción `-d` ejecuta los contenedores en segundo plano (modo detached).
 
-Para seguir los logs del frontend:
+#### Para seguir los logs del servicio en Docker:
 ```bash
 docker compose logs -f frontend
 ```
@@ -51,12 +40,28 @@ La aplicación estará disponible en:
 ```
 http://localhost:4200
 ```
+> El contenedor del frontend utiliza el archivo `environment.docker.ts`.
 
-Angular utilizará el archivo `environment.docker.ts`.
 
----
+### ▶️ Ejecutar en entorno local (sin Docker)
+#### Instalar dependencias
+```bash
+cd frontend
+npm install
+```
+####  Ejecutar en entorno local
 
-## ⚙️ Configuración
+```bash
+npm start
+```
+> Este comando ejecuta `ng serve` y utiliza automáticamente `environment.development.ts`
+
+Abrir en el navegador:
+```
+http://localhost:4200
+```
+
+### ⚙️ Configuración
 
 La configuración del frontend se define en:
 

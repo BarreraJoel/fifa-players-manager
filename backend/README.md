@@ -1,31 +1,79 @@
-### 🚀 Guía de instalación y ejecución
+## ⚙️ Backend
+
+Este README describe cómo ejecutar y trabajar con el backend de forma **aislada**.  
+Para levantar todo el sistema completo (frontend, backend y base de datos), consultar el README principal.
 
 ---
 
 ### 🔧 Requisitos previos
-1. **Servidor MySQL**: instalado y en ejecución
-2. **Node.js**: v18 o superior
-3. **npm**: Gestor de paquetes
-4. **Docker & Docker Compose** (opcional)
+
+#### Para ejecución local
+- Node.js v18 o superior
+- npm
+- Base de datos MySQL en ejecución
+
+#### Para ejecución con Docker
+- Docker
 
 ---
 
-### 📦 Instalación
+### 🐳 Ejecutar con Docker (recomendado)
+El backend se ejecuta automáticamente como parte del entorno Docker del proyecto.
 
-#### 1. Clonar el repositorio
+#### 🚀 Primer arranque (build de imágenes)
+
+Desde la **raíz del repositorio**:
 ```bash
-git clone https://github.com/BarreraJoel/fifa-players-manager
-cd backend
+docker compose up --build -d
+```
+#### Arranques posteriores
+```bash
+docker compose up -d
+```
+> La opción `-d` ejecuta los contenedores en segundo plano (modo detached).
+
+#### Para seguir los logs del servicio en Docker:
+```bash
+docker compose logs -f backend
 ```
 
-#### 2. Instalar dependencias
+#### 📝 Ejecutar migraciones (obligatorio)
+
 ```bash
+npm run db:migrate:docker
+```
+> para deshacer las migraciones:
+```bash
+npm run db:migrate:docker:undo:all
+```
+
+#### 🌱 Ejecutar seeders (recomendado)
+```bash
+npm run db:seed:docker
+```
+> para deshacer los seeders:
+```bash
+npm run db:seed:docker:rollback
+```
+
+#### Seguir logs del servicio en Docker
+```bash
+docker compose logs -f backend
+```
+
+---
+
+### ▶️ Ejecutar en entorno local (sin Docker)
+
+#### Instalar dependencias
+```bash
+cd backend
 npm install
 ```
 
 ---
 
-### 📝 Migraciones (tablas)
+#### 📝 Ejecutar migraciones en local (obligatorio)
 
 ```bash
 npm run db:migrate
@@ -36,17 +84,7 @@ npm run db:migrate
 npm run db:migrate:undo:all
 ```
 
-### 🐳 Migraciones (Docker)
-
-```bash
-npm run db:migrate:docker
-```
-> para deshacer las migraciones:
-```bash
-npm run db:migrate:docker:undo:all
-```
-
-### 🌱 Seeders (registros)
+#### 🌱 Ejecutar seeders en local (recomendado)
 
 ```bash
 npm run db:seed
@@ -58,27 +96,16 @@ npm run db:seed
 npm run db:seed:rollback
 ```
 
-### 🐳 Seeders (Docker)
+### ▶️ Ejecutar el servidor en modo desarrollo
 ```bash
-npm run db:seed:docker
-```
-> para deshacer los seeders:
-```bash
-npm run db:seed:docker:rollback
-```
-
----
-
-### 🧪 Desarrollo
-Ejecutar el servidor en modo desarrollo:
-```bash
+cd backend
+npm install
 npm run dev
 ```
 > Usa nodemon + ts-node para recarga automática.
 
 ---
-
-### 📦 Build
+#### 📦 Build
 
 Generar archivos compilados:
 ```bash
@@ -87,7 +114,7 @@ npm run build
 
 ---
 
-### ▶️ Producción
+#### 🚀 Producción
 
 Ejecutar la aplicación compilada:
 ```bash

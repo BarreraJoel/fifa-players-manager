@@ -1,3 +1,84 @@
+### 🚀 Guía de instalación y ejecución
+
+---
+
+### 🔧 Requisitos previos
+
+* **Docker** (recomendado)
+
+> Para ejecución local sin Docker, consultar los README de frontend y backend.
+
+---
+
+### ⚙️ Configuración inicial
+
+#### Clonar el repositorio
+```bash
+git clone https://github.com/BarreraJoel/fifa-players-manager
+```
+### 🔐 Variables de entorno
+
+El proyecto utiliza un archivo `.env` a nivel raíz para la configuración global.
+
+#### Crear archivo `.env` (Obligatorio)
+```bash
+cp .env.example .env
+```
+
+#### Configurar las variables necesarias según el entorno
+```bash
+# App config
+APP_PORT= # e.g. 3000
+ENV= # e.g. development | production
+...
+```
+> Ver `.env.example` para la lista completa de variables
+---
+
+### 🐳 Ejecutar con Docker (recomendado)
+
+#### 🚀 Primer arranque
+
+```bash
+docker compose up --build -d
+```
+Esto levantará:
+
+- Frontend
+- Backend
+- Base de datos
+---
+
+#### Flujo de desarrollo diario
+
+Levantar servicios:
+```bash
+docker compose up
+```
+Detener servicios:
+```bash
+docker compose down
+```
+---
+
+#### 📜 Logs por servicio
+
+Frontend:
+```bash
+docker compose logs -f frontend
+```
+Backend:
+```bash
+docker compose logs -f backend
+```
+---
+#### 📚 Documentación adicional
+- [Backend README](./backend/README.md)
+- [Frontend README](./frontend/README.md)
+- [Docker README](./README.Docker.md)
+
+---
+
 ### 📋 Gestión del proyecto
 
 Para la organización y seguimiento del desarrollo se utilizó **Jira** como herramienta de gestión de tareas.
