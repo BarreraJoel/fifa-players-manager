@@ -105,6 +105,23 @@ npm run dev
 > Usa nodemon + ts-node para recarga automática.
 
 ---
+
+### 📘 Documentación de la API
+
+El backend expone la documentación interactiva de la API mediante **Swagger**.
+Una vez levantado el servicio, se puede acceder desde:
+
+```bash
+http://localhost:3000/api/docs
+```
+Desde Swagger es posible:
+- Visualizar todos los endpoints disponibles
+- Ver los modelos de datos
+- Consultar parámetros, validaciones y respuestas posibles
+- Probar los endpoints directamente desde el navegador
+
+---
+
 #### 📦 Build
 
 Generar archivos compilados:

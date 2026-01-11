@@ -1,3 +1,9 @@
+⚽ **FIFA Players Manager** es una aplicación web full-stack para la gestión y visualización de jugadores de fútbol. Permite administrar información detallada de cada jugador, analizar sus habilidades mediante gráficos interactivos y consultar métricas clave del rendimiento.
+
+📊 La plataforma incluye autenticación de usuarios, listado de jugadores con paginación, vistas de detalle con Radar Charts de skills, exportación de datos a CSV y visualización de rankings como los jugadores mejor puntuados.
+
+🧩 El proyecto está desarrollado con frontend y backend desacoplados, documentado con Swagger, y preparado para ejecutarse de forma simple y consistente mediante Docker, facilitando el desarrollo y la puesta en marcha del entorno completo.
+
 ### 🚀 Guía de instalación y ejecución
 
 ---
@@ -98,6 +104,13 @@ Para la organización y seguimiento del desarrollo se utilizó **Jira** como her
 
 > Nota: El tablero de Jira fue utilizado como herramienta interna de planificación y seguimiento del proyecto.
 
+### 📝 Notas
+- Se utilizó una convención de commits basada en **Conventional Commits**, facilitando la lectura del historial y el seguimiento de cambios.
+- El desarrollo se organizó utilizando ramas por **feature**, facilitando el control de cambios y la revisión de PRs.
+- Se decidió utilizar el archivo `male_players.sql` como fuente inicial de datos.
+- En el backend se seleccionaron únicamente los atributos más relevantes del jugador.
+  - Estos se encuentran reflejados en el modelo `Player`, alineados con los requerimientos funcionales del proyecto.
+---
 
 ### ⚙️ Decisiones funcionales
 
@@ -149,9 +162,13 @@ Para la organización y seguimiento del desarrollo se utilizó **Jira** como her
 - La obtención del listado de jugadores se realiza mediante el endpoint `GET /api/players`.
 - El endpoint soporta paginación para manejar grandes volúmenes de datos.
 - La paginación se realiza mediante parámetros de consulta:
-  - limit
-  - after
-  - before
+  - `limit` (Cantidad de registros)
+  - `after` (Cursor para avanzar)
+  - `before` (Cursor para retroceder)
+- Se puede realizar filtrado por los parámetros:
+  - `nationality_name` (Nacionalidad)
+  - `long_name` (Nombre)
+  - `club_name` (Club)
 - El listado retorna un conjunto reducido de atributos relevantes del jugador.
 - Antes de procesar la solicitud:
   - Se validan y normalizan los parámetros de paginación.
@@ -254,4 +271,3 @@ Swagger fue integrado para:
 - Documentar los endpoints disponibles.
 - Facilitar la prueba de la API sin herramientas externas.
 - Servir como referencia clara del contrato de la API.
----
